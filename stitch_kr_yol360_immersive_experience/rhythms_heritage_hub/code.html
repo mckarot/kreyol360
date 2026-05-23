@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Krèyol Heritage - Musique &amp; Danses</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800&amp;family=Be+Vietnam+Pro:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#544600",
+                        "primary": "#ffb3ae",
+                        "on-primary-fixed": "#410005",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary-container": "#00a669",
+                        "surface-variant": "#353534",
+                        "surface-dim": "#131313",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed": "#ffe16d",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#930016",
+                        "on-secondary": "#003921",
+                        "secondary": "#59de9b",
+                        "tertiary": "#e9c400",
+                        "outline": "#ab8986",
+                        "on-surface": "#e5e2e1",
+                        "inverse-primary": "#ba1826",
+                        "background": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#59de9b",
+                        "on-background": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "primary-container": "#ff5354",
+                        "surface-container-highest": "#353534",
+                        "inverse-on-surface": "#313030",
+                        "on-tertiary-fixed": "#221b00",
+                        "secondary-fixed": "#78fbb6",
+                        "on-primary-container": "#5c000a",
+                        "on-error": "#690005",
+                        "outline-variant": "#5b403e",
+                        "surface": "#131313",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-bright": "#3a3939",
+                        "on-tertiary-container": "#4b3e00",
+                        "on-secondary-fixed": "#002111",
+                        "on-secondary-fixed-variant": "#005232",
+                        "primary-fixed-dim": "#ffb3ae",
+                        "surface-tint": "#ffb3ae",
+                        "surface-container-high": "#2a2a2a",
+                        "on-primary": "#68000d",
+                        "surface-container": "#201f1f",
+                        "tertiary-container": "#c8a900",
+                        "primary-fixed": "#ffdad7",
+                        "on-secondary-container": "#00311c",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "on-surface-variant": "#e4bebb",
+                        "on-tertiary": "#3a3000"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "stack-lg": "32px",
+                        "stack-md": "16px",
+                        "section-gap": "48px",
+                        "container-padding": "24px",
+                        "gutter": "16px",
+                        "stack-sm": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Epilogue"],
+                        "display-lg-mobile": ["Epilogue"],
+                        "display-lg": ["Epilogue"],
+                        "label-bold": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "headline-md": ["Epilogue"],
+                        "body-lg": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "42px", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "label-bold": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0A0A0A;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 83, 84, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 166, 105, 0.05) 0%, transparent 40%);
+            background-attachment: fixed;
+            color: #e5e2e1;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-floating {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(64px);
+            -webkit-backdrop-filter: blur(64px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .gradient-btn {
+            background: linear-gradient(135deg, #FF4E50 0%, #FFD700 100%);
+            color: #410005;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-background/80 backdrop-blur-md docked full-width top-0 z-50 bg-transparent flex justify-between items-center w-full px-container-padding py-stack-md hidden md:flex">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border-2 border-tertiary relative">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="Close up portrait of a young person in vibrant warm lighting, luxury fintech app style with dark background, high contrast premium aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj9wuyA5VlXtmj8Jj7VRxI_Ic8FcW-1_BF_BsZ1PQW77jhnTNWCHDvHzwaqOysuTF_WZnMw9y9sApzlYm28QGvXU2tS7ZxHdO4jmSq_RBX1jqi7KpfxRt7YLW0t-cDbJumiO-cdbJu-BAvZNVhEZSzTtH3bXIk78J7G5KFZobV3om-5BMgYAaawsQ7MzfaEqhnXq5R99zza-OgmRA7j2HY_dASr568BevPdqMGYOvM9Y0Btse4gkvnqemAIbNKzyLupq6T4zZb5A"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-tertiary rounded-full border border-background"></span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary font-bold tracking-tight">Krèyol Heritage</h1>
+</div>
+<nav class="flex gap-8">
+<a class="text-on-surface hover:opacity-80 transition-opacity font-label-bold text-label-bold" href="#">Home</a>
+<a class="text-on-surface hover:opacity-80 transition-opacity font-label-bold text-label-bold" href="#">Map</a>
+<a class="text-primary font-bold hover:opacity-80 transition-opacity font-label-bold text-label-bold relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary" href="#">Music</a>
+<a class="text-on-surface hover:opacity-80 transition-opacity font-label-bold text-label-bold" href="#">Profile</a>
+</nav>
+<button class="text-tertiary hover:opacity-80 transition-opacity flex items-center justify-center w-10 h-10 rounded-full glass-panel">
+<span class="material-symbols-outlined">local_fire_department</span>
+</button>
+</header>
+<main class="flex-grow md:max-w-7xl md:mx-auto w-full px-container-padding py-stack-lg md:px-20 gap-section-gap flex flex-col">
+<!-- Header & Search -->
+<section class="flex flex-col gap-stack-md">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Musique &amp; Danses</h2>
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full glass-panel rounded-full py-4 pl-12 pr-4 text-on-surface font-body-md focus:outline-none focus:ring-1 focus:ring-primary placeholder-on-surface-variant/50" placeholder="Search rhythms, instruments, traditions..." type="text"/>
+</div>
+<div class="flex gap-3 overflow-x-auto hide-scrollbar py-2">
+<button class="px-5 py-2 rounded-full glass-panel font-label-bold text-label-bold text-on-surface whitespace-nowrap hover:bg-secondary-container hover:text-on-secondary transition-colors">Bèlè</button>
+<button class="px-5 py-2 rounded-full bg-secondary-container border border-secondary text-on-secondary font-label-bold text-label-bold whitespace-nowrap">Zouk</button>
+<button class="px-5 py-2 rounded-full glass-panel font-label-bold text-label-bold text-on-surface whitespace-nowrap hover:bg-secondary-container hover:text-on-secondary transition-colors">Shatta</button>
+<button class="px-5 py-2 rounded-full glass-panel font-label-bold text-label-bold text-on-surface whitespace-nowrap hover:bg-secondary-container hover:text-on-secondary transition-colors">Gwo Ka</button>
+<button class="px-5 py-2 rounded-full glass-panel font-label-bold text-label-bold text-on-surface whitespace-nowrap hover:bg-secondary-container hover:text-on-secondary transition-colors">Bouyon</button>
+</div>
+</section>
+<!-- Featured Section Carousel -->
+<section class="flex flex-col gap-stack-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">Featured Heritage</h3>
+<div class="flex overflow-x-auto gap-gutter hide-scrollbar snap-x snap-mandatory">
+<!-- Card 1 -->
+<div class="snap-center shrink-0 w-[85vw] md:w-[600px] glass-panel rounded-xl overflow-hidden relative group">
+<div class="h-64 w-full relative">
+<img alt="Bèlè Drummer" class="w-full h-full object-cover" data-alt="Dynamic shot of a traditional Caribbean drummer performing with intense emotion, warm glowing sunset lighting over deep obsidian background, high contrast cinematic photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDne7s-KB8vwrk95giZfgIN0YcqNzJbR6ESraBuKM0gt2fpiOevm4pDMmMEDiCfCA9vU39CvRingAnzXpFqIjcs4pSjiUgeasv3XPA7LNkX4jHU0NEeBIgpuhzJ2ub8nR7OPbqhB_Auxz4rltaEMEQYbU6J_2n46AC9Y66-7I8f_-YAJrj2WApqRONg8xxmeOjo1czugwt-Z8nKtbi6X_iOBzRf2gnWWJbn_d52lxtTjwu4g8IemG0coXxfFEMNrtoinCOyHw7TCw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+</div>
+<div class="p-container-padding absolute bottom-0 w-full flex flex-col gap-stack-sm">
+<span class="px-3 py-1 bg-tertiary/20 text-tertiary rounded-full font-label-bold text-label-bold w-max backdrop-blur-md">Tradition</span>
+<h4 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Bèlè: The Heart of Martinique</h4>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Experience the rhythmic dialogue between dancer and drummer, a profound cultural expression of resilience and freedom.</p>
+<button class="mt-2 w-max gradient-btn px-6 py-3 rounded-full font-label-bold text-label-bold flex items-center gap-2 hover:opacity-90 transition-opacity">
+                            Start Dance Initiation <span class="material-symbols-outlined text-[18px]">play_circle</span>
+</button>
+</div>
+</div>
+<!-- Card 2 (Placeholder) -->
+<div class="snap-center shrink-0 w-[85vw] md:w-[600px] glass-panel rounded-xl overflow-hidden relative opacity-70 scale-95">
+<div class="h-64 w-full relative">
+<div class="w-full h-full bg-surface-container-high"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- List View -->
+<section class="flex flex-col gap-stack-md pb-12">
+<div class="flex justify-between items-end">
+<h3 class="font-headline-md text-headline-md text-on-surface">Explore Heritage Rhythms</h3>
+<button class="font-label-bold text-label-bold text-primary hover:underline">View All</button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Track 1 -->
+<div class="glass-panel rounded-lg p-3 flex items-center gap-4 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-14 h-14 rounded-md overflow-hidden shrink-0 relative">
+<img alt="Album Art" class="w-full h-full object-cover" data-alt="Abstract vibrant tropical colors swirling in dark glassmorphism style, album cover aesthetic, luxury digital art." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzsbJtgKdRsKAcc9Udhj3bib5WfWhqeXeCCIYm-F850KSmnxG3SkbfFhmBk5OeKWBfWKA3nvLaZw-GZDdKgQbsGYz6pRiVmW1dHlYUqYvsNlPiBnGlelpshWJVkv5OQvwAdWqQhs37bRhwO6U9BPI-SrIQGIxZtkn5MrANvP9JCB-eD7ZPClMglnRFY3l4YS17rdvU0UoZtqUzvEum1R0ztkja8emFsU_ip9voOysj69_9ohZ_zpNmopZX-MRxzZkJ1oHfpF6mQA"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white">menu_book</span>
+</div>
+</div>
+<div class="flex-grow flex flex-col">
+<h5 class="font-label-bold text-label-bold text-on-surface">The Gwo Ka Drum Cycle</h5>
+<p class="font-body-md text-body-md text-sm text-on-surface-variant">Fundamental 7 rhythms</p>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2">
+<span class="material-symbols-outlined">bookmark_border</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors p-2">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Track 2 -->
+<div class="glass-panel rounded-lg p-3 flex items-center gap-4 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-14 h-14 rounded-md overflow-hidden shrink-0 relative">
+<img alt="Album Art" class="w-full h-full object-cover" data-alt="DJ turntables glowing in neon tropical colors against obsidian dark background, high-end nightlife photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUoQqQRj20d7dD-FWT4UQ6lObADpcy_y2dqdl9HEIgGYThChFJs-PXx0XWSQH6bYXhaIaPOJkT0hUsKNNcKgh_9O0n2RWnpthXuDcPBVleQ5lvcEsaacS2Uu7Grt5nqLx6j__UlhxtdrEFf3TzpA08FJH20-c0BKfoSzfCHj4_nXMLYp6Sql0xo_VfyOFmdJ0p1CFYpXprdobom1E1rBNxXiLjspaE235nDsiZSURXNmmyRXca5sZV4m1KIVTstioCmfrMRnICHg"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white">menu_book</span>
+</div>
+</div>
+<div class="flex-grow flex flex-col">
+<h5 class="font-label-bold text-label-bold text-on-surface">Basic Bèlè Footwork</h5>
+<p class="font-body-md text-body-md text-sm text-on-surface-variant">Dance Foundation</p>
+</div>
+<button class="text-primary transition-colors p-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors p-2">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Track 3 -->
+<div class="glass-panel rounded-lg p-3 flex items-center gap-4 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-14 h-14 rounded-md overflow-hidden shrink-0 relative">
+<img alt="Album Art" class="w-full h-full object-cover" data-alt="Beautiful sunset over calm Caribbean sea, dark silhouette of palm leaves, moody cinematic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0lJmZF84RHWglc1zaZsFR6W63wn_tf727qfPmn1AS7P_-2SlPlwT1-OGKQ1QPACElCjHkq7NuaR3Vnrjd9cRVPQmhgW7oK6-NTu_u4x-0yFfENFho7CTI5QyrNNzgMZFbqo8jqdbbI1McPZDilJgnQ0dRAorL4qLCyh0ZHA28-wUR4VWEPJwqcOlvxWI3aGkBzXL_xn7Cj0J-5Tto8e7oQ6zUxKjDzaWA4kuSnXEiPLMj2SbCk85FgUQE33UVAjkLAlqQjMDUWg"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white">menu_book</span>
+</div>
+</div>
+<div class="flex-grow flex flex-col">
+<h5 class="font-label-bold text-label-bold text-on-surface">History of Zouk Tempo</h5>
+<p class="font-body-md text-body-md text-sm text-on-surface-variant">Origins and evolution</p>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2">
+<span class="material-symbols-outlined">bookmark_border</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors p-2">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface/30 backdrop-blur-3xl fixed bottom-0 w-full z-50 rounded-t-lg shadow-2xl fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 duration-200" data-icon="home">home</span>
+<span class="font-label-bold text-[10px] mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 duration-200" data-icon="map">map</span>
+<span class="font-label-bold text-[10px] mt-1">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 duration-200" data-icon="music_note" style="font-variation-settings: 'FILL' 1;">music_note</span>
+<span class="font-label-bold text-[10px] mt-1">Music</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 duration-200" data-icon="person">person</span>
+<span class="font-label-bold text-[10px] mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

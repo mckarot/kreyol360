@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kréyol Heritage - Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800&amp;family=Be+Vietnam+Pro:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#544600",
+                      "primary": "#ffb3ae",
+                      "on-primary-fixed": "#410005",
+                      "surface-container-lowest": "#0e0e0e",
+                      "secondary-container": "#00a669",
+                      "surface-variant": "#353534",
+                      "surface-dim": "#131313",
+                      "error": "#ffb4ab",
+                      "tertiary-fixed": "#ffe16d",
+                      "error-container": "#93000a",
+                      "on-primary-fixed-variant": "#930016",
+                      "on-secondary": "#003921",
+                      "secondary": "#59de9b",
+                      "tertiary": "#e9c400",
+                      "outline": "#ab8986",
+                      "on-surface": "#e5e2e1",
+                      "inverse-primary": "#ba1826",
+                      "background": "#131313",
+                      "on-error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#59de9b",
+                      "on-background": "#e5e2e1",
+                      "surface-container-low": "#1c1b1b",
+                      "primary-container": "#ff5354",
+                      "surface-container-highest": "#353534",
+                      "inverse-on-surface": "#313030",
+                      "on-tertiary-fixed": "#221b00",
+                      "secondary-fixed": "#78fbb6",
+                      "on-primary-container": "#5c000a",
+                      "on-error": "#690005",
+                      "outline-variant": "#5b403e",
+                      "surface": "#131313",
+                      "inverse-surface": "#e5e2e1",
+                      "surface-bright": "#3a3939",
+                      "on-tertiary-container": "#4b3e00",
+                      "on-secondary-fixed": "#002111",
+                      "on-secondary-fixed-variant": "#005232",
+                      "primary-fixed-dim": "#ffb3ae",
+                      "surface-tint": "#ffb3ae",
+                      "surface-container-high": "#2a2a2a",
+                      "on-primary": "#68000d",
+                      "surface-container": "#201f1f",
+                      "tertiary-container": "#c8a900",
+                      "primary-fixed": "#ffdad7",
+                      "on-secondary-container": "#00311c",
+                      "tertiary-fixed-dim": "#e9c400",
+                      "on-surface-variant": "#e4bebb",
+                      "on-tertiary": "#3a3000"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "stack-lg": "32px",
+                      "stack-md": "16px",
+                      "section-gap": "48px",
+                      "container-padding": "24px",
+                      "gutter": "16px",
+                      "stack-sm": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Epilogue"],
+                      "display-lg-mobile": ["Epilogue"],
+                      "display-lg": ["Epilogue"],
+                      "label-bold": ["Be Vietnam Pro"],
+                      "body-md": ["Be Vietnam Pro"],
+                      "headline-md": ["Epilogue"],
+                      "body-lg": ["Be Vietnam Pro"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "display-lg-mobile": ["36px", {"lineHeight": "42px", "letterSpacing": "-0.01em", "fontWeight": "800"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "label-bold": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-panel-floating {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(64px);
+            -webkit-backdrop-filter: blur(64px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #FF4E50 0%, #FFD700 100%);
+        }
+        .bg-glow-orange {
+            background: radial-gradient(circle at 50% 50%, rgba(255, 78, 80, 0.15) 0%, transparent 60%);
+        }
+        .bg-glow-emerald {
+            background: radial-gradient(circle at 50% 50%, rgba(0, 166, 105, 0.15) 0%, transparent 60%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-md relative overflow-x-hidden pb-[100px]">
+<!-- Decorative Ambient Lights -->
+<div class="fixed top-0 left-0 w-full h-[442px] bg-glow-orange pointer-events-none -z-10"></div>
+<div class="fixed bottom-0 right-0 w-[80vw] h-[530px] bg-glow-emerald pointer-events-none -z-10"></div>
+<!-- TopAppBar Container (Mobile & Desktop Header Area) -->
+<header class="sticky top-0 z-40 bg-background/80 backdrop-blur-md flex justify-between items-center w-full px-container-padding py-stack-md transition-all duration-300" id="main-header">
+<div class="flex items-center gap-3">
+<div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-tertiary shadow-[0_0_15px_rgba(233,196,0,0.3)]">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A high-quality portrait photograph of a vibrant individual, used as a profile avatar in a digital interface. The person has an engaging expression, bathed in soft, warm lighting that highlights their features against a deep obsidian background. The aesthetic reflects a premium, rhythmic elegance consistent with a vibrant glassmorphism design system. Subtle warm golden tones emphasize a high-fidelity cultural digital experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEkuHsPzQZz7n-GK0fCegHge9K36lUits5JkGF3edjGZ0eTT9Ts_VnI02jzV_G4Xjsv_zGF32bgTlH65eJKS0sYAOpkclmsZU-jk6R2j-U98SXLDl3VitWLQUdmfn2VXyyJpL2GxK547G3hud0RUR9oToadvVtAFj1LtNH3mx76jWy2CpwU60VsmO1ynA80_X7OO9_CN35SPzFC--kG90gWYDPMGT-Kj5-Q5DcIKFYlCk6gGQklpA3mtFZGdVVSFJcuIra_PTr3Q"/>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-on-surface-variant text-sm">Bonjou</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold leading-none">Mathieu</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-high rounded-full px-3 py-1.5 border border-white/5">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-label-bold text-label-bold text-tertiary">Lvl 12</span>
+</div>
+</header>
+<main class="px-container-padding max-w-7xl mx-auto w-full flex flex-col gap-section-gap mt-stack-md">
+<!-- Ti pawol du jour Card -->
+<section>
+<div class="glass-panel rounded-lg p-6 relative overflow-hidden group">
+<div class="absolute -right-10 -top-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-all duration-500"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<h2 class="font-label-bold text-label-bold text-secondary uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+                        Ti pawol du jour
+                    </h2>
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-surface-bright transition-colors border border-white/10 group/btn">
+<span class="material-symbols-outlined text-on-surface group-hover/btn:text-primary transition-colors" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<div class="relative z-10">
+<p class="font-headline-lg text-headline-lg text-on-surface mb-2 font-bold leading-tight">
+                        "Pati pou chaché,<br/>pa di ou trouvé"
+                    </p>
+<p class="font-body-lg text-body-lg text-on-surface-variant italic">
+                        To go looking doesn't mean you've found.
+                    </p>
+</div>
+<!-- Audio Wave Visualizer Simulation -->
+<div class="flex items-end gap-1 mt-6 h-6 relative z-10 opacity-50">
+<div class="w-1 bg-primary rounded-full h-full animate-[bounce_1s_infinite]"></div>
+<div class="w-1 bg-primary rounded-full h-4 animate-[bounce_1.2s_infinite]"></div>
+<div class="w-1 bg-primary rounded-full h-2 animate-[bounce_0.8s_infinite]"></div>
+<div class="w-1 bg-primary rounded-full h-5 animate-[bounce_1.5s_infinite]"></div>
+<div class="w-1 bg-primary rounded-full h-3 animate-[bounce_0.9s_infinite]"></div>
+<div class="w-1 bg-primary rounded-full h-full animate-[bounce_1.1s_infinite]"></div>
+<div class="w-1 bg-primary rounded-full h-4 animate-[bounce_1.3s_infinite]"></div>
+<div class="w-1 bg-primary rounded-full h-2 animate-[bounce_0.7s_infinite]"></div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Categories -->
+<section>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-stack-lg font-bold">Explore</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter md:gap-container-padding">
+<!-- Langue -->
+<a class="group relative h-48 md:h-64 rounded-xl overflow-hidden glass-panel border-none block" href="#">
+<div class="absolute inset-0 bg-gradient-to-br from-[#FF4E50]/40 to-transparent z-10 mix-blend-overlay"></div>
+<img alt="Language Category" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-80 transition-all duration-700" data-alt="A vivid, expressive photograph capturing the concept of language and spoken word, set against a stunning, vibrant Caribbean sunset. The colors are rich oranges, deep reds, and striking golds that blend seamlessly into the obsidian aesthetic of a premium digital interface. The lighting is cinematic, highlighting the silhouette of a person speaking passionately, embodying rhythmic elegance and cultural depth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXjWzH7EKw-lFC_rYgqqC0HjrDAkkfrHOXx7OqQThrcTfeqejMcX8I9fRWnaVeFpbVmxZnOUayEr3aGa1-ofPdaa-GnAgnPboQFPmAMWv1QI6IQdCyeeLdONNXHQQ4yVVSp3fnHt_SISqd1yT5qnBnGb9BMWfhGqFqrUrYuzYJJvRhbeF5QBHup2r8yGVWDxe52_uk37l8VTDS9zfpq1YbGXxZxLRWsuQkh67fAJA3r8_HU88hRFO_MCNUIdFGNkM6yTKcBBTEPA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent z-20"></div>
+<div class="absolute bottom-0 left-0 p-6 z-30 w-full flex justify-between items-end">
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface font-bold">Langue</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Language</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container/50 backdrop-blur-md flex items-center justify-center border border-white/10 group-hover:bg-primary/20 group-hover:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-on-surface group-hover:text-primary transition-colors">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- Musique & Rythmes -->
+<a class="group relative h-48 md:h-64 rounded-xl overflow-hidden glass-panel border-none block md:col-span-1" href="#">
+<div class="absolute inset-0 bg-gradient-to-br from-secondary/30 to-transparent z-10 mix-blend-overlay"></div>
+<img alt="Music Category" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-80 transition-all duration-700" data-alt="A dynamic, high-contrast photograph of traditional Caribbean drums being played, bathed in deep, ambient emerald green lighting. The scene captures the motion and energy of rhythmic music within a sophisticated, luxury digital context. The background is a profound obsidian black, allowing the vibrant green highlights on the textured drum skin to pop, conveying a sense of vibrant glassmorphism and cultural immersion." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9Cucz5MvWSOeLtmwV5B6rUjmszW1691FpyEmGZcUzCqyiRMZtmk_gyU4oaWlOuoaEYmIvvJKkp05qVMO08XbIWPVxXpFx3alDkuRAW8ZOGmzr0-JsjcO_d71-tAdj-yXu4Se2704s58UkFWKfymHAVCCuLk1jzET5kiVoWokazLSl55mv4KIqBLI7497xdUgHJBwOpls7g8ldy0c9h_MAueCUqASU7pXayDyfCFcNNYOD4QfKrWmutEzHdLQa3-2Js9Uw7f-fOg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent z-20"></div>
+<div class="absolute bottom-0 left-0 p-6 z-30 w-full flex justify-between items-end">
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface font-bold">Musique &amp; Rythmes</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Music</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container/50 backdrop-blur-md flex items-center justify-center border border-white/10 group-hover:bg-secondary/20 group-hover:border-secondary/50 transition-colors">
+<span class="material-symbols-outlined text-on-surface group-hover:text-secondary transition-colors">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- Istwa & Patrimoine -->
+<a class="group relative h-48 md:h-64 rounded-xl overflow-hidden glass-panel border-none block" href="#">
+<div class="absolute inset-0 bg-gradient-to-br from-tertiary/30 to-transparent z-10 mix-blend-overlay"></div>
+<img alt="History Category" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-80 transition-all duration-700" data-alt="An atmospheric photograph of an ancient, textured stone wall or historical artifact, illuminated by warm gold and sepia tones against a dark obsidian background. The image evokes a deep sense of history and heritage, designed for a premium cultural app. The lighting is soft yet dramatic, creating a rhythmic elegance that perfectly fits a vibrant glassmorphism aesthetic, emphasizing high-fidelity and sophisticated storytelling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4v3wDILz__cU5e40bLHi-PreiIaV5s_DHCaX9dhYvEt-hXmREhocL7PbsxkmflgFeQXTGNE1peT5z6emehYTExzaTqXtlHm4RXn51x_AbZo9fbN9y76TGMa5I-IUWKBeVxVzN2RJq7iC5SG8xJRPXbZLxJOiS_nBbwGvXOlOUBDsRCwmHB2upb-ldq8YTE6cpRTQZ3Lwdt67e-OlMXzaUtBEaOEDVszCQFBEYd5D-kpcihdQyLSzSBE2EK4dymqE8vW15-6pCoQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent z-20"></div>
+<div class="absolute bottom-0 left-0 p-6 z-30 w-full flex justify-between items-end">
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface font-bold">Istwa &amp; Patrimoine</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">History</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container/50 backdrop-blur-md flex items-center justify-center border border-white/10 group-hover:bg-tertiary/20 group-hover:border-tertiary/50 transition-colors">
+<span class="material-symbols-outlined text-on-surface group-hover:text-tertiary transition-colors">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- Manjé -->
+<a class="group relative h-48 md:h-64 rounded-xl overflow-hidden glass-panel border-none block" href="#">
+<div class="absolute inset-0 bg-gradient-to-br from-primary-container/30 to-transparent z-10 mix-blend-overlay"></div>
+<img alt="Cuisine Category" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-80 transition-all duration-700" data-alt="A mouth-watering, high-end food photography shot of vibrant, spicy Caribbean cuisine presented on an elegant dark plate. The scene is lit with warm, moody lighting that highlights the rich reds, yellows, and fresh greens of the dish. The deep obsidian background provides stark contrast, aligning with a luxury fintech-style interface. The overall mood is vibrant, immersive, and elegantly tactile, embodying vibrant glassmorphism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhlK7znsUTtJetY-JqPP-c7HZ8YGsejUdEbHi3eT1Suxjb7OHdeQFETRcsz1cPk3u5ZLwPIezV8D90wsDZxajiZ7xlJp5_mkY6rye7_wHdID7lHGR4C4Z7Sk4yGbskVGjeeLnMT8Hb59t7B_KInUuf_rFHIebxm_vlIcZHrHP6t91uyQnV9RCEYewEPPV7WZFKTE9QQYuPlfvlUkjZC5GUbUG7uoP3XhLnW0h-UBmB6vD34Afa2Ej6NbHfbexSd6YDmDheJXWijA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent z-20"></div>
+<div class="absolute bottom-0 left-0 p-6 z-30 w-full flex justify-between items-end">
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface font-bold">Manjé</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Cuisine</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container/50 backdrop-blur-md flex items-center justify-center border border-white/10 group-hover:bg-primary-container/20 group-hover:border-primary-container/50 transition-colors">
+<span class="material-symbols-outlined text-on-surface group-hover:text-primary-container transition-colors">arrow_forward</span>
+</div>
+</div>
+</a>
+</div>
+</section>
+<!-- Quick Action Widget -->
+<section class="mt-8 mb-12">
+<div class="glass-panel-floating rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center border border-white/10 shrink-0">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">music_note</span>
+</div>
+<div>
+<h4 class="font-label-bold text-label-bold text-on-surface">Need a vibe?</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Discover a song based on your mood</p>
+</div>
+</div>
+<button class="w-full md:w-auto btn-gradient text-white font-label-bold text-label-bold py-3 px-6 rounded-full hover:opacity-90 transition-opacity flex items-center justify-center gap-2 whitespace-nowrap shadow-[0_4px_20px_rgba(255,78,80,0.4)]">
+<span class="material-symbols-outlined text-sm">shuffle</span>
+                    Surprise me
+                </button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only based on layout logic, though requirement says include it) -->
+<nav class="md:hidden bg-surface/30 backdrop-blur-3xl fixed bottom-0 w-full z-50 rounded-t-lg shadow-2xl flex justify-around items-center px-4 pb-6 pt-3">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 transition-all duration-300 scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-bold text-[10px] mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-bold text-[10px] mt-1">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="music_note">music_note</span>
+<span class="font-label-bold text-[10px] mt-1">Music</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-bold text-[10px] mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-lg', 'border-b', 'border-white/5');
+            } else {
+                header.classList.remove('shadow-lg', 'border-b', 'border-white/5');
+            }
+        });
+    </script>
+</body></html>

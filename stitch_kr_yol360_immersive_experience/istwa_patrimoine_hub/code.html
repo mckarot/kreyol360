@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Istwa &amp; Patrimoine</title>
+<!-- Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Phosphor Icons -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<!-- Tailwind Config -->
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Epilogue', 'sans-serif'],
+          },
+          colors: {
+            // Deep Obsidian background
+            background: '#0F0F13',
+            surface: {
+              DEFAULT: 'rgba(255, 255, 255, 0.05)',
+              dim: '#131313',
+              bright: '#2A2A35',
+            },
+            // Sunset Orange accents
+            primary: {
+              DEFAULT: '#FF6B35',
+              dim: 'rgba(255, 107, 53, 0.1)',
+            },
+            // Secondary accent
+            secondary: '#FFB800',
+            text: {
+              DEFAULT: '#F5F5F5',
+              muted: '#A0A0A5',
+            }
+          },
+          borderRadius: {
+            'full': '9999px',
+            'xl': '1.5rem',
+            '2xl': '2rem',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-utilities">
+    /* Glassmorphism effect */
+    .glass {
+      background: rgba(30, 30, 36, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    /* Hide scrollbar for carousels */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    body {
+      background-color: #0F0F13;
+      color: #F5F5F5;
+      /* Background gradient hinting at a volcano/sunset at the bottom */
+      background-image: radial-gradient(circle at 50% 120%, rgba(255, 107, 53, 0.15) 0%, rgba(15, 15, 19, 1) 70%);
+      background-attachment: fixed;
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen pb-24 font-sans selection:bg-primary selection:text-white">
+<!-- BEGIN: Header -->
+<header class="px-6 pt-12 pb-6 flex justify-between items-center sticky top-0 z-50 bg-background/80 backdrop-blur-md">
+<h1 class="text-3xl font-bold tracking-tight text-white">Istwa &amp; Patrimoine</h1>
+<button aria-label="Settings" class="p-2 rounded-full glass text-text-muted hover:text-white transition-colors">
+<i class="ph ph-gear text-2xl"></i>
+</button>
+</header>
+<!-- END: Header -->
+<main class="space-y-10">
+<!-- BEGIN: Interactive Timeline Section -->
+<section class="space-y-6">
+<div class="px-6">
+<h2 class="text-xl font-bold mb-4">Interactive Timeline</h2>
+<!-- Timeline Tabs -->
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface text-sm font-medium border border-white/10 hover:bg-surface-bright transition-colors">
+            Periode Precolomienne
+          </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full glass text-sm font-medium border border-white/10 hover:bg-surface-bright transition-colors">
+            Colonisation
+          </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full glass text-sm font-medium border border-white/10 hover:bg-surface-bright transition-colors">
+            Esclavage
+          </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full glass text-sm font-medium border border-white/10 hover:bg-surface-bright transition-colors">
+            Catastrophes
+          </button>
+</div>
+</div>
+<!-- Visual Timeline -->
+<div class="px-6 relative py-4">
+<!-- Connecting Line -->
+<div class="absolute top-1/2 left-6 right-6 h-0.5 bg-white/20 -translate-y-1/2 rounded-full"></div>
+<div class="relative flex justify-between items-center z-10">
+<!-- Node 1: Key Event -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+<span class="text-[10px] text-text-muted whitespace-nowrap absolute top-6">Pevemens clés</span>
+</div>
+<!-- Node 2: Selected Event -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-4 h-4 rounded-full bg-secondary shadow-[0_0_12px_rgba(255,184,0,0.6)]"></div>
+<span class="text-[10px] text-secondary font-medium whitespace-nowrap absolute top-6">Calmerte pelés</span>
+</div>
+<!-- Node 3 -->
+<div class="flex flex-col items-center gap-2">
+<!-- Hexagon shape for variety -->
+<div class="w-5 h-5 bg-secondary/80 flex items-center justify-center" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"></div>
+<span class="text-[10px] text-text-muted absolute top-6">6:6</span>
+</div>
+<!-- Node 4 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-4 h-4 bg-white/20 flex items-center justify-center" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"></div>
+<span class="text-[10px] text-text-muted absolute top-6">6:0</span>
+</div>
+<!-- Node 5 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-4 h-4 bg-primary/80 flex items-center justify-center" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"></div>
+<span class="text-[10px] text-text-muted absolute top-6">7:4</span>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="px-6 flex justify-between items-center pt-2">
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary text-primary text-sm font-semibold hover:bg-primary/10 transition-colors">
+<i class="ph-bold ph-caret-up"></i>
+          VOIR PLUS
+        </button>
+<button class="px-6 py-2.5 rounded-full bg-primary text-white text-sm font-bold shadow-[0_4px_14px_rgba(255,107,53,0.4)] hover:bg-primary/90 transition-colors">
+          VOIR PLUS
+        </button>
+</div>
+</section>
+<!-- END: Interactive Timeline Section -->
+<!-- BEGIN: Figures Emblematiques Section -->
+<section>
+<div class="px-6 mb-4">
+<h2 class="text-xl font-bold">Figures Emblematiques</h2>
+</div>
+<!-- Horizontal Carousel -->
+<div class="flex gap-4 overflow-x-auto no-scrollbar pl-6 pr-6 pb-4">
+<!-- Card 1: Aimé Césaire -->
+<div class="relative min-w-[200px] w-[200px] h-[280px] rounded-2xl overflow-hidden shrink-0 group">
+<!-- Placeholder image for portrait -->
+<img alt="Aimé Césaire" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDA17Kpt4he160GHztaKvqut_5Ebv4ET8QrBMLcv1DJEO6VNO457YKCGtDyxhFK-tIyMehryVDYVc6MyWaFeAWbOvduMovHB4AjcfFmtStSByvNV6ur27nkBrXTSq1H1LSWqUsz-_Db4SdlrVDd0Xh_LxMXSXMFS58xi9qBPdHBusfAt5qk3ICzvEf6-_pr5WrPeR3faekP_0n-3fH0ukqylFqyBEUo2qerx6Z9RwWgBLIzFvLf6K9JsogBNCEj-TXmblwv6-6Rg"/>
+<!-- Gradient overlay for text readability -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-4 w-full">
+<h3 class="text-lg font-bold text-white leading-tight mb-1">Aimé Césaire</h3>
+<p class="text-sm text-text-muted">1913 - 2008</p>
+</div>
+</div>
+<!-- Card 2: Paulette Nardal -->
+<div class="relative min-w-[200px] w-[200px] h-[280px] rounded-2xl overflow-hidden shrink-0 group">
+<img alt="Paulette Nardal" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4Pq7wDIPgGM5BF8ky16csm5Fnl7tgCaWbaLjwum-QuTghqqqJMipHMibNpofKl9xGDJ5TR4nAtPVQwMF1CacdFa77K6ObjhorZFZAfHZVnNaVRBwP267Rj31eDUwzKZ_A3q9_CSTR58_ly983uGEYVMQUOPhaZ2-73w2h8SY33-1tEM1XRGL2K6a_4wL6y1birZnuPmB9a0xOMp9xjfnCsnZToP9uhTI1oAA5qPMQpm_ids2CnVzB0pi4Cd9t0TR0him_vOl6iQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-4 w-full">
+<h3 class="text-lg font-bold text-white leading-tight mb-1">Paulette Nardal</h3>
+<p class="text-sm text-text-muted">1896 - 1985</p>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Figures Emblematiques Section -->
+<!-- BEGIN: Lieux Historiques Section -->
+<section class="px-6 space-y-4">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-xl font-bold">Lieux Historiques</h2>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-secondary text-secondary text-xs font-bold hover:bg-secondary/10 transition-colors uppercase tracking-wide">
+<i class="ph-fill ph-map-pin"></i>
+          Voir la carte
+        </button>
+</div>
+<!-- List of Locations -->
+<div class="space-y-4">
+<!-- Location 1 -->
+<div class="flex items-center gap-4 py-2 border-b border-white/5">
+<img alt="Volcan de la Montagne Pelée" class="w-16 h-16 rounded-xl object-cover shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJikaKmT87uwpNpPxMCQTkJDfUFpq5JTRD74nnqloOnE9EUkI6XaaPhWAvYVnfnkJYec9_QacZJLgXQEMAKSAANMTZvahKHB_XGe1DD62GCxNG7LbWs6VTS99P06YFu3E0_3A-EhHJ_Vgl9vUhVhQeJAOQca7aeoaYFpoYrhWd21MXrU2YYcCKI2RZSwjbYudn37C8ADQJZLZxfsZ-YGg0cpwTsOzfhIakZSgoH8ZYpvady9oMt4YZ6qv6KanBiz6eRIPurZB7AA"/>
+<div class="flex-1 min-w-0">
+<h3 class="text-sm font-bold text-white leading-tight mb-1 truncate">Volcan de la Montagne Pelée</h3>
+<p class="text-xs text-text-muted">1amo ne</p>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<span class="text-xs text-text-muted">20 hs</span>
+<i class="ph-bold ph-caret-right text-text-muted"></i>
+</div>
+</div>
+<!-- Location 2 -->
+<div class="flex items-center gap-4 py-2 border-b border-white/5">
+<img alt="Habitation Clément" class="w-16 h-16 rounded-xl object-cover shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClj5n6f67Bylk0UGiztgKrExm3C7XoJh-UhHB9UvzBgHkppaEY4b1G5H1C3s1EGm7lw6XXtpaoUV1_T0C9QKKe7DMbJ1wA-MVV2IRmm4DcffDIpAtVKcrXu_j5wR2WPEmymjeAiN5NLFogorIDe0sbH3lztVe1Vh6VhC-SUguelccFfV6HNloFcLZsUIhMiFjP4UohlZyLlgp3NxLHFuZofoXWeBjyVCTS-xTPCvhNA82wtZ1uizyE7u7Vkp0BzUV3eSOGqa1wvw"/>
+<div class="flex-1 min-w-0">
+<h3 class="text-sm font-bold text-white leading-tight mb-1 truncate">Habitation Clément</h3>
+<p class="text-xs text-text-muted">1amo ne</p>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<span class="text-xs text-text-muted">11mn</span>
+<i class="ph-bold ph-caret-right text-text-muted"></i>
+</div>
+</div>
+<!-- Location 3 -->
+<div class="flex items-center gap-4 py-2">
+<img alt="Ruines de Saint-Pierre" class="w-16 h-16 rounded-xl object-cover shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7FcS-y3GWvTKISp7CVn_tgKuwm0BcxDujPnxxEtY7XjpQSt5vP9sS2NUoz7bLbIAo4GHQBJdiqrA7BWGsY6C-3w2iUzMjzAXMwfS68ZvI6nct6t_j_VnJQRsX_blLaiibPzkb6rz8OBEa8CB61XhIyoBESPx2zTFrYPlgwdxSceRC5Oz87yRq80oN7aie8bdQcgrW_Z0brBSbQQdqSsrQ0FWmUO72gbwh3TDwNM-04XDrcfUwd7sJ4zNgLF944RlwTsqicMWpcA"/>
+<div class="flex-1 min-w-0">
+<h3 class="text-sm font-bold text-white leading-tight mb-1 truncate">Ruines de Saint-Pierre</h3>
+<p class="text-xs text-text-muted">1amo ne</p>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<span class="text-xs text-text-muted">20m</span>
+<span class="text-xs text-text-muted w-3 text-center">1</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Lieux Historiques Section -->
+</main>
+<!-- Background decorative image hint (volcano at bottom) -->
+<div class="fixed bottom-0 left-0 w-full h-64 -z-10 opacity-30 pointer-events-none" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCc4xMhDBSGc8Qz1ajN_iN1JK-oxECwnHAZBRUJQe_YxPwhsCwyIThDvn7jK3AXoUMeQhYuM9FU6hVQcdmO5q5oQtpfnAj4mqf32tXDf1tLy9f0N2ZYXP4AP6OdUk4-Wnz8uvnLzQC8gsnh3fZ4-W88AwBuyYNcpeoyli_JdTPeRa0gTDy2eS2feREJR0inY9rpdELWBygXGDi3IxpcoRBxWBMBKmfZJixIeHs7WAdKJ8UzDMWWLcvhoLGUHDmwY2id7DeQaV2Weg'); background-size: cover; background-position: bottom; mask-image: linear-gradient(to top, black, transparent); -webkit-mask-image: linear-gradient(to top, black, transparent);"></div>
+<!-- BEGIN: Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 w-full glass pb-safe pt-2 px-6 rounded-t-3xl border-t border-white/10 z-50">
+<div class="flex justify-between items-center pb-2">
+<a class="flex flex-col items-center gap-1 text-text-muted hover:text-white transition-colors w-16" href="#">
+<i class="ph ph-user text-2xl"></i>
+<span class="text-[10px] font-medium tracking-wide">Accueil</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-text-muted hover:text-white transition-colors w-16" href="#">
+<i class="ph ph-books text-2xl"></i>
+<span class="text-[10px] font-medium tracking-wide">Langue</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-text-muted hover:text-white transition-colors w-16" href="#">
+<i class="ph ph-music-notes text-2xl"></i>
+<span class="text-[10px] font-medium tracking-wide">Mangé</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-white w-16" href="#">
+<i class="ph-fill ph-user text-2xl"></i>
+<span class="text-[10px] font-medium tracking-wide">Profil</span>
+</a>
+</div>
+<!-- iOS Home Indicator Space -->
+<div class="h-6 w-full flex justify-center items-end pb-2">
+<div class="w-1/3 h-1 bg-white/30 rounded-full"></div>
+</div>
+</nav>
+<!-- END: Bottom Navigation -->
+</body></html>

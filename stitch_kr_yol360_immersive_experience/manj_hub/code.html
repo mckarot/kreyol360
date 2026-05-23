@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manjé - Kréyol Heritage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&amp;family=Epilogue:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#544600",
+                    "surface-container-highest": "#353534",
+                    "on-tertiary-fixed": "#221b00",
+                    "on-primary": "#68000d",
+                    "on-background": "#e5e2e1",
+                    "background": "#131313",
+                    "primary-fixed-dim": "#ffb3ae",
+                    "inverse-on-surface": "#313030",
+                    "surface-tint": "#ffb3ae",
+                    "on-tertiary": "#3a3000",
+                    "error": "#ffb4ab",
+                    "inverse-primary": "#ba1826",
+                    "on-secondary-container": "#00311c",
+                    "secondary-fixed": "#78fbb6",
+                    "inverse-surface": "#e5e2e1",
+                    "tertiary-fixed": "#ffe16d",
+                    "tertiary-container": "#c8a900",
+                    "on-surface": "#e5e2e1",
+                    "tertiary-fixed-dim": "#e9c400",
+                    "surface": "#131313",
+                    "secondary-container": "#00a669",
+                    "surface-container-low": "#1c1b1b",
+                    "error-container": "#93000a",
+                    "surface-container-high": "#2a2a2a",
+                    "secondary": "#59de9b",
+                    "on-surface-variant": "#e4bebb",
+                    "on-primary-fixed-variant": "#930016",
+                    "on-secondary-fixed-variant": "#005232",
+                    "on-secondary": "#003921",
+                    "outline-variant": "#5b403e",
+                    "on-primary-container": "#5c000a",
+                    "tertiary": "#e9c400",
+                    "secondary-fixed-dim": "#59de9b",
+                    "on-secondary-fixed": "#002111",
+                    "primary-container": "#ff5354",
+                    "primary-fixed": "#ffdad7",
+                    "surface-dim": "#131313",
+                    "outline": "#ab8986",
+                    "on-tertiary-container": "#4b3e00",
+                    "on-error-container": "#ffdad6",
+                    "on-error": "#690005",
+                    "surface-container": "#201f1f",
+                    "on-primary-fixed": "#410005",
+                    "surface-container-lowest": "#0e0e0e",
+                    "surface-bright": "#3a3939",
+                    "primary": "#ffb3ae",
+                    "surface-variant": "#353534"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-padding": "24px",
+                    "gutter": "16px",
+                    "stack-sm": "8px",
+                    "section-gap": "48px",
+                    "unit": "8px",
+                    "stack-md": "16px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "label-bold": [
+                            "Be Vietnam Pro"
+                    ],
+                    "display-lg": [
+                            "Epilogue"
+                    ],
+                    "body-lg": [
+                            "Be Vietnam Pro"
+                    ],
+                    "headline-lg": [
+                            "Epilogue"
+                    ],
+                    "display-lg-mobile": [
+                            "Epilogue"
+                    ],
+                    "headline-md": [
+                            "Epilogue"
+                    ],
+                    "body-md": [
+                            "Be Vietnam Pro"
+                    ]
+            },
+            "fontSize": {
+                    "label-bold": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "36px",
+                            {
+                                    "lineHeight": "42px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-float {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(64px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #FF4E50 0%, #FFD700 100%);
+        }
+        .bg-glow-orange {
+            background: radial-gradient(circle at center, rgba(255, 78, 80, 0.15) 0%, rgba(19, 19, 19, 0) 70%);
+        }
+        .bg-glow-emerald {
+            background: radial-gradient(circle at center, rgba(0, 166, 105, 0.15) 0%, rgba(19, 19, 19, 0) 70%);
+        }
+        
+        /* Hide scrollbar for horizontal scroll */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md antialiased pb-32">
+<!-- Ambient Background Glows -->
+<div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="absolute top-0 left-0 w-[500px] h-[500px] bg-glow-orange rounded-full mix-blend-screen blur-[100px] opacity-60"></div>
+<div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-glow-emerald rounded-full mix-blend-screen blur-[120px] opacity-40"></div>
+</div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md flex justify-between items-center px-container-padding py-stack-md border-b border-transparent">
+<div class="flex items-center gap-gutter">
+<div class="w-10 h-10 rounded-full border border-tertiary p-0.5 overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover rounded-full" data-alt="A close up portrait of a person with dark skin, smiling gently. They are wearing a golden necklace. The lighting is warm and natural, fitting a premium, culturally rich app interface. Set against a dark, obsidian background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMLm44OJwWUN4Rj_k6WvC8G5-jocqwJepG5XhYw2GYf8XcLur6SSjW9Kv6tE0S2JvEZquXVtlt_rrP4hr9ls11gehlnma4llNP5aJqSN0Hrnyx3fArf5SpOAwP0gK7XnSMiwqPRwlmaxqX1LQLV20XDziMZUfWJay_859_iHBbShjsMJx4EZKzroNX_KJNFErtVnOT-HL9thN_H4MUQdwKnU9rQEuoVYjf8i1RcMY8lQf5pHIDx-2IZ5Mwvnx7IxmRJoAHw_FLUQ"/>
+</div>
+<h1 class="font-headline-md-mobile text-headline-md-mobile text-primary font-bold md:font-headline-md md:text-headline-md">Kréyol Heritage</h1>
+</div>
+<button class="text-tertiary hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</button>
+</header>
+<main class="relative z-10 pt-24 px-container-padding max-w-7xl mx-auto md:px-20 lg:px-32">
+<!-- Search Bar -->
+<section class="mb-section-gap">
+<div class="glass-float rounded-full px-6 py-4 flex items-center gap-4 focus-within:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-transparent border-none w-full text-on-surface placeholder-on-surface-variant focus:ring-0 font-body-lg text-body-lg" placeholder="Rechercher une recette, un ingrédient..." type="text"/>
+</div>
+</section>
+<!-- Featured Section -->
+<section class="mb-section-gap">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg mb-stack-lg">Saveurs de Saison</h2>
+<div class="glass-card rounded-xl overflow-hidden relative group">
+<div class="absolute inset-0 z-0">
+<img alt="Colombo de Cabri" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700" data-alt="A high-quality, professional food photograph of a traditional Caribbean dish, Colombo de Cabri (goat curry), served in a rustic dark bowl. The dish is rich in golden-yellow spices, garnished with fresh herbs. The lighting is dramatic and moody, emphasizing the textures of the meat and sauce against a dark, premium background. Steam gently rising." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcS5KSleAUd1_DvyMTBw5mhwYCxchjyYXqu3_o6gk-2mEFlliP3u1uqg3GQsDQ-HTl2b04iULqekVENCFRePakUMckRXt8ebDCcV0ikl_oFRtBVEAC8lKMF7ptiEHoKikVdgdnMaQiMV8X-r7YMykmlokWM3tYlBJ4qNAwfnl_bVr-kxagPv4YULRTGd6E_oV0cKvVRCR5tiNhsi7_qo7uDBJnvQbCVpoW4Y8ornN3SpY-EAulCJ5MLroBfcrTUCZFipebBT2RVQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
+</div>
+<div class="relative z-10 p-8 pt-48 md:pt-64 flex flex-col justify-end h-full">
+<div class="flex items-center gap-2 mb-3">
+<span class="px-3 py-1 glass-float rounded-full font-label-bold text-label-bold text-tertiary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span> 2h 30min
+                        </span>
+<span class="px-3 py-1 glass-float rounded-full font-label-bold text-label-bold text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">trending_up</span> Populaire
+                        </span>
+</div>
+<h3 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg font-bold mb-2 text-white">Colombo de Cabri</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6 max-w-lg">L'incontournable plat de fête, mijoté aux épices douces et relevé d'une pointe de piment bondamanjak.</p>
+<button class="btn-gradient w-fit px-8 py-3 rounded-full font-label-bold text-label-bold text-on-primary hover:scale-105 transition-transform duration-300">
+                        Voir la recette
+                    </button>
+</div>
+</div>
+</section>
+<!-- Categories -->
+<section class="mb-section-gap">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg mb-stack-lg">Parcourez la Carte</h2>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+<a class="glass-card rounded-lg p-6 flex flex-col items-center justify-center gap-3 hover:bg-white/5 transition-colors group" href="#">
+<div class="w-12 h-12 rounded-full glass-float flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">tapas</span>
+</div>
+<span class="font-label-bold text-label-bold">Entrées</span>
+</a>
+<a class="glass-card rounded-lg p-6 flex flex-col items-center justify-center gap-3 hover:bg-white/5 transition-colors group" href="#">
+<div class="w-12 h-12 rounded-full glass-float flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">restaurant</span>
+</div>
+<span class="font-label-bold text-label-bold">Plats</span>
+</a>
+<a class="glass-card rounded-lg p-6 flex flex-col items-center justify-center gap-3 hover:bg-white/5 transition-colors group" href="#">
+<div class="w-12 h-12 rounded-full glass-float flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">cake</span>
+</div>
+<span class="font-label-bold text-label-bold">Desserts</span>
+</a>
+<a class="glass-card rounded-lg p-6 flex flex-col items-center justify-center gap-3 hover:bg-white/5 transition-colors group" href="#">
+<div class="w-12 h-12 rounded-full glass-float flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">local_bar</span>
+</div>
+<span class="font-label-bold text-label-bold">Boissons</span>
+</a>
+<a class="glass-card rounded-lg p-6 flex flex-col items-center justify-center gap-3 hover:bg-white/5 transition-colors group col-span-2 md:col-span-1" href="#">
+<div class="w-12 h-12 rounded-full glass-float flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">spa</span>
+</div>
+<span class="font-label-bold text-label-bold">Épices</span>
+</a>
+</div>
+</section>
+<!-- Chefs & Savoir-faire -->
+<section class="mb-section-gap">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg mb-stack-lg">Chefs &amp; Savoir-faire</h2>
+<div class="flex overflow-x-auto gap-6 pb-4 hide-scrollbar -mx-container-padding px-container-padding md:mx-0 md:px-0">
+<div class="min-w-[280px] glass-card rounded-lg p-6">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-tertiary">
+<img alt="Chef Marie" class="w-full h-full object-cover" data-alt="Portrait of an older Caribbean woman, a traditional chef, wearing a colorful madras headwrap. She is smiling warmly in a softly lit, dark kitchen environment. The mood is authentic, premium, and deeply cultural." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiVJe5-o91QB4nzDeLR1FfruOGMueJZgjZysYjxNtdxbYaXj2E2fGk9rvgkK_dqFHq7uoyHM_pqlRlHFefttKTueLQRgF2G921jRvDss2q9GA1t5SsFuO0Bm-630lPv7MQTdtbbxYbng0WJOn5ZanjL37jlbxRrh4cebEfSREXgzI-EfqUEyDEmWspIubIYhZSlb8cmaAZCA9y69QlEN0ERhv42J-66i1XUrf8nGvIGDTf4tCTrpX1qOhSwzvGtKUzmDSsopW2Lw"/>
+</div>
+<div>
+<h4 class="font-headline-md-mobile text-headline-md-mobile">Mama Rose</h4>
+<p class="text-secondary font-label-bold text-label-bold">Reine des Accras</p>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm mb-4">Découvrez les secrets transmis de génération en génération pour des fritures parfaites.</p>
+<button class="text-primary font-label-bold text-label-bold flex items-center gap-1 hover:text-white transition-colors">
+                        Voir son profil <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="min-w-[280px] glass-card rounded-lg p-6">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary">
+<img alt="Chef Jean" class="w-full h-full object-cover" data-alt="Portrait of a young, modern Afro-Caribbean male chef in a dark grey chef's coat. He has a focused expression, standing in a sleek, dark professional kitchen. Cinematic lighting highlighting his features against the obsidian background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-F4SuSDe0xfpuUH2Hbzaflv2vemh4DgbRYKwlncCuRXziJ88l0zoOwetMvvIEysW0BZ3DdMQghFQHT73VzFvSIOS5JKO9flSZlktuiMLDXDiyb7A2qkk-qLNxBiE5VdCzmjw_O3UuF9gFamPx3tJ44HSdxWjihLGEiWEg0oE3XcdoIH0yeP6fnmf7hQiKeLChtQIKBPerVadgJue4zReLVykD5NJBUd4NzhwbMAe1AEAci0CXU-hW7tt3zY5brfe4latiFBgGqw"/>
+</div>
+<div>
+<h4 class="font-headline-md-mobile text-headline-md-mobile">Chef Léo</h4>
+<p class="text-primary font-label-bold text-label-bold">Gastronomie Moderne</p>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm mb-4">Une réinterprétation audacieuse des classiques de la cuisine antillaise.</p>
+<button class="text-primary font-label-bold text-label-bold flex items-center gap-1 hover:text-white transition-colors">
+                        Voir son profil <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-surface/30 backdrop-blur-3xl shadow-2xl rounded-t-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-bold text-label-bold text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">map</span>
+<span class="font-label-bold text-label-bold text-[10px]">Map</span>
+</a>
+<!-- Active Tab: Manjé replacing Music -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 transition-all duration-300 scale-95" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+<span class="font-label-bold text-label-bold text-[10px]">Manjé</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-bold text-label-bold text-[10px]">Profile</span>
+</a>
+</nav>
+<!-- Desktop Side Nav / Header cluster (Simplified for this view as per instructions) -->
+<div class="hidden md:flex fixed top-0 right-0 z-50 h-20 items-center pr-8 gap-8 bg-transparent">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-bold text-label-bold" href="#">Home</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-bold text-label-bold" href="#">Map</a>
+<a class="text-primary font-label-bold text-label-bold flex items-center gap-2 border-b-2 border-primary pb-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">restaurant</span> Manjé
+        </a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-bold text-label-bold" href="#">Profile</a>
+</div>
+</body></html>

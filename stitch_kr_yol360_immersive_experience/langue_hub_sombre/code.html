@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Langue - Kréyol Heritage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800&amp;family=Be+Vietnam+Pro:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-high": "#2a2a2a",
+                        "surface-container": "#201f1f",
+                        "tertiary-fixed": "#ffe16d",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-highest": "#353534",
+                        "outline-variant": "#5b403e",
+                        "secondary": "#59de9b",
+                        "secondary-fixed": "#78fbb6",
+                        "outline": "#ab8986",
+                        "surface": "#131313",
+                        "on-surface-variant": "#e4bebb",
+                        "on-tertiary-fixed-variant": "#544600",
+                        "on-primary": "#68000d",
+                        "on-secondary-container": "#00311c",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary-fixed-dim": "#59de9b",
+                        "on-background": "#e5e2e1",
+                        "inverse-primary": "#ba1826",
+                        "inverse-surface": "#e5e2e1",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#ffdad7",
+                        "on-tertiary-container": "#4b3e00",
+                        "on-secondary": "#003921",
+                        "tertiary-container": "#c8a900",
+                        "primary-container": "#ff5354",
+                        "surface-dim": "#131313",
+                        "primary": "#ffb3ae",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#353534",
+                        "surface-bright": "#3a3939",
+                        "on-tertiary": "#3a3000",
+                        "surface-container-low": "#1c1b1b",
+                        "on-primary-fixed-variant": "#930016",
+                        "on-error": "#690005",
+                        "on-surface": "#e5e2e1",
+                        "tertiary": "#e9c400",
+                        "on-primary-fixed": "#410005",
+                        "primary-fixed-dim": "#ffb3ae",
+                        "on-primary-container": "#5c000a",
+                        "on-secondary-fixed": "#002111",
+                        "on-tertiary-fixed": "#221b00",
+                        "background": "#131313",
+                        "secondary-container": "#00a669",
+                        "surface-tint": "#ffb3ae",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "on-secondary-fixed-variant": "#005232"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "unit": "8px",
+                        "container-padding": "24px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "section-gap": "48px",
+                        "gutter": "16px"
+                    },
+                    fontFamily: {
+                        "headline-lg": ["Epilogue"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "headline-md": ["Epilogue"],
+                        "display-lg-mobile": ["Epilogue"],
+                        "label-bold": ["Be Vietnam Pro"],
+                        "display-lg": ["Epilogue"],
+                        "body-lg": ["Be Vietnam Pro"]
+                    },
+                    fontSize: {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "display-lg-mobile": ["36px", { "lineHeight": "42px", "letterSpacing": "-0.01em", "fontWeight": "800" }],
+                        "label-bold": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            /* Radial gradients for accent glows far behind the glass */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 78, 80, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(89, 222, 155, 0.05) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+        
+        .glass-level-1 {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-level-2 {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(64px);
+            -webkit-backdrop-filter: blur(64px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .text-gradient-primary {
+            background: linear-gradient(90deg, #FF4E50 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bg-gradient-btn {
+            background: linear-gradient(90deg, #FF4E50 0%, #FFD700 100%);
+        }
+
+        .progress-bar-glow {
+            box-shadow: 0 0 10px rgba(89, 222, 155, 0.5);
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body-md antialiased pb-24 md:pb-0 overflow-x-hidden min-h-screen bg-[#131313] text-[#e5e2e1]">
+<!-- TopAppBar from JSON (Mobile: docked top) -->
+<header class="bg-surface/30 backdrop-blur-3xl docked full-width top-0 z-50 flex justify-between items-center w-full px-container-padding py-stack-md fixed transition-all duration-300 md:hidden" id="mobile-top-nav">
+<!-- Leading Avatar -->
+<div class="relative cursor-pointer hover:opacity-80 transition-opacity">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-tertiary">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo4ohnQNU4A7ci0V3ReoMH0Ah6ROALG34hvhC9CyzJ6YSxMFBabuLPSnaEwqzhdzsS0bvZclLMZvD3xVU4Jwcsz08sHuAHejW_wcnl1zy7IG225uQz-B-aKX406scrdxEdcRKSWt8a6le3Fx-zy1AYHjvEyjK8tIie9-DoV0BFLHTTQPud6T7lu4LitvxeEfKFgqHUMdUvHU8I71bqM7b6Wj8MEIPxkWmnXCHVFD1SJ7rvqlz4KQIkZhgS3g0pW7E5yS0VThYGPw"/>
+</div>
+<!-- Gold Achievement Badge -->
+<div class="absolute -bottom-1 -right-1 bg-tertiary w-4 h-4 rounded-full flex items-center justify-center border-2 border-background">
+<span class="material-symbols-outlined text-[10px] text-on-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<!-- Headline -->
+<h1 class="font-headline-md-mobile text-headline-md-mobile text-tertiary">
+            Kréyol Heritage
+        </h1>
+<!-- Trailing Icon -->
+<button class="text-on-surface hover:opacity-80 transition-opacity flex items-center justify-center p-2 rounded-full bg-surface/30 backdrop-blur-3xl border border-white/5">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="ml-1 font-label-bold text-on-surface">12</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-[88px] px-container-padding flex flex-col gap-section-gap max-w-7xl mx-auto pb-stack-lg md:pt-stack-lg">
+<!-- Current Progress Card -->
+<section class="bg-surface/30 backdrop-blur-3xl border border-white/5 rounded-DEFAULT p-container-padding relative overflow-hidden group mt-stack-md md:mt-0">
+<!-- Decorative Background Image -->
+<div class="absolute inset-0 opacity-20 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A lush tropical landscape in the Caribbean featuring vibrant green foliage and a misty mountain backdrop. The image is bathed in warm, golden hour light, reflecting the rich cultural heritage and natural beauty of the islands. The mood is serene, evocative, and deeply connected to nature, perfectly complementing the vibrant glassmorphism aesthetic of the UI." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDBT56hWmJVHPJQ41WQQiiwPChFLm04IqwpPqRCzOiAyig1wSEjqPUABXjq8N9JURSjnIivK_WHl_s0ejtKNPzsDFmd9TZBWhq5wdGtgBeY9YofYK20PEKuFkO_23Wwl3eHieGkTU4G7qCGB4Ge3wb_DCESlJLv9R-2FF_p1G-OpWAS3HXk_rbhMQ6N4QFzcwjcK0n2G31ciKV84OSWqG9p-a0NEqfAizjjswAHunjlAqkNwyYPGUW1Wmef5rVnNt9uKUilYbgq5w');"></div>
+<!-- Dark Overlay for Readability -->
+<div class="absolute inset-0 bg-gradient-to-b from-surface-container-high/80 to-surface/90"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-stack-md">
+<div>
+<span class="inline-block px-3 py-1 rounded-full text-xs font-label-bold bg-secondary/20 text-secondary border border-secondary/30 mb-stack-sm uppercase tracking-wider">
+                            Niveau 1
+                        </span>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-sm text-white">Salutations Quotidiennes</h2>
+<p class="text-on-surface-variant text-sm max-w-[250px]">Continuez votre apprentissage des expressions de base.</p>
+</div>
+<!-- Circular Progress -->
+<div class="relative w-16 h-16">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-surface-container-highest stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3"></path>
+<path class="text-secondary stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="75, 100" stroke-width="3"></path>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center font-label-bold text-white text-sm">
+                            75%
+                        </div>
+</div>
+</div>
+<!-- Linear Progress Bar -->
+<div class="mb-stack-lg">
+<div class="h-3 w-full bg-surface-container-highest rounded-full overflow-hidden border border-white/5">
+<div class="h-full bg-secondary rounded-full progress-bar-glow transition-all duration-1000 ease-out" style="width: 75%;"></div>
+</div>
+<div class="flex justify-between mt-2 text-xs font-label-bold text-on-surface-variant">
+<span class="text-white">12/16 Leçons</span>
+<span class="text-secondary">En cours</span>
+</div>
+</div>
+<button class="w-full bg-gradient-btn text-on-primary font-label-bold py-3 rounded-full flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg shadow-primary/20">
+                    Continuer l'apprentissage
+                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Ti Pawol (Proverb of the Day) -->
+<section class="bg-surface/30 backdrop-blur-3xl border border-white/5 rounded-DEFAULT p-container-padding border-l-4 border-l-tertiary">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-tertiary text-[24px]">wb_incandescent</span>
+<h3 class="font-label-bold text-label-bold text-tertiary uppercase tracking-wider">Ti Pawol du Jour</h3>
+</div>
+<div class="mb-stack-md pl-4 border-l-2 border-surface-variant">
+<p class="font-headline-md text-xl text-white italic mb-2">"Piti piti, zwazo fè nich li."</p>
+<p class="text-sm text-on-surface-variant">Petit à petit, l'oiseau fait son nid. (Patience et persévérance mènent au succès).</p>
+</div>
+<button class="flex items-center gap-2 text-primary hover:text-primary-container transition-colors font-label-bold text-sm bg-primary/10 px-4 py-2 rounded-full w-fit">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+                Écouter la prononciation
+            </button>
+</section>
+<!-- Learning Categories Grid -->
+<section>
+<h3 class="font-headline-md text-lg text-white mb-stack-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">category</span>
+                Domaines d'Étude
+            </h3>
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface/30 backdrop-blur-3xl border border-white/5 rounded-DEFAULT p-4 flex flex-col justify-between h-40 group cursor-pointer hover:bg-surface-container-high/50 transition-colors relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[80px]">chat_bubble</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mb-auto border border-primary/30 z-10">
+<span class="material-symbols-outlined text-primary">chat_bubble</span>
+</div>
+<div class="z-10 mt-stack-md">
+<h4 class="font-label-bold text-sm text-white mb-1">Pawol Fondamental</h4>
+<p class="text-xs text-on-surface-variant">Vocabulaire de base</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface/30 backdrop-blur-3xl border border-white/5 rounded-DEFAULT p-4 flex flex-col justify-between h-40 group cursor-pointer hover:bg-surface-container-high/50 transition-colors relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[80px]">auto_stories</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-tertiary/20 flex items-center justify-center mb-auto border border-tertiary/30 z-10">
+<span class="material-symbols-outlined text-tertiary">auto_stories</span>
+</div>
+<div class="z-10 mt-stack-md">
+<h4 class="font-label-bold text-sm text-white mb-1">Proverbes &amp; Sagesses</h4>
+<p class="text-xs text-on-surface-variant">Expressions culturelles</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface/30 backdrop-blur-3xl border border-white/5 rounded-DEFAULT p-4 flex flex-col justify-between h-40 group cursor-pointer hover:bg-surface-container-high/50 transition-colors relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[80px]">rule</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center mb-auto border border-secondary/30 z-10">
+<span class="material-symbols-outlined text-secondary">rule</span>
+</div>
+<div class="z-10 mt-stack-md">
+<h4 class="font-label-bold text-sm text-white mb-1">Grammaire Kréyol</h4>
+<p class="text-xs text-on-surface-variant">Structure &amp; règles</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface/30 backdrop-blur-3xl border border-white/5 rounded-DEFAULT p-4 flex flex-col justify-between h-40 group cursor-pointer hover:bg-surface-container-high/50 transition-colors relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[80px]">psychology</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-[#FF4E50]/20 flex items-center justify-center mb-auto border border-[#FF4E50]/30 z-10">
+<span class="material-symbols-outlined text-[#FF4E50]">psychology</span>
+</div>
+<div class="z-10 mt-stack-md">
+<h4 class="font-label-bold text-sm text-white mb-1">Idiomes</h4>
+<p class="text-xs text-on-surface-variant">Façons de parler</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Community/Social Challenge -->
+<section class="mb-section-gap">
+<div class="flex justify-between items-center mb-stack-md">
+<h3 class="font-headline-md text-lg text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">emoji_events</span>
+                    Défi de la Semaine
+                </h3>
+<a class="text-xs font-label-bold text-primary hover:underline" href="#">Voir le classement</a>
+</div>
+<div class="bg-surface/30 backdrop-blur-3xl border border-tertiary/20 rounded-DEFAULT p-container-padding flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center border-2 border-tertiary shadow-lg shadow-tertiary/10">
+<span class="material-symbols-outlined text-tertiary">star</span>
+</div>
+<div>
+<h4 class="font-label-bold text-sm text-white">5 Jours d'affilée</h4>
+<p class="text-xs text-on-surface-variant">Complétez une leçon aujourd'hui.</p>
+</div>
+</div>
+<button class="bg-surface-container-high hover:bg-surface-bright text-white font-label-bold text-xs py-2 px-4 rounded-full border border-white/10 transition-colors">
+                    Participer
+                </button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar from JSON (Mobile: fixed bottom) -->
+<nav class="bg-surface/30 backdrop-blur-3xl border border-white/5 fixed bottom-0 w-full z-50 rounded-t-lg shadow-2xl flex justify-around items-center px-4 pb-6 pt-3 md:hidden">
+<!-- Inactive: Home -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-bold text-[10px]">Home</span>
+</a>
+<!-- Inactive: Map -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">map</span>
+<span class="font-label-bold text-[10px]">Map</span>
+</a>
+<!-- Inactive: Music -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">music_note</span>
+<span class="font-label-bold text-[10px]">Music</span>
+</a>
+<!-- Active: Profile (Since Language isn't explicitly in the bottom nav JSON, and Profile often houses learning stats, we'll map it to Home for generic browsing, or keep it inactive if we strictly follow the 'semantic mapping'. Given it's a primary feature, let's assume it's a top-level accessible via Home, but the prompt says 'Use BottomNavBar with Home or Language specific active state'. Since 'Language' isn't in label_texts ["Home", "Map", "Music", "Profile"], we must highlight Home as the active ecosystem entry point for this context based on strict exact match rules.) -->
+<!-- Wait, strict rule: "If the page's primary subject aligns... Intent Fallback: ONLY use semantic intent... " Home makes the most sense if this is a sub-section of the main app experience not covered by Map/Music/Profile. Actually, highlighting none might violate 'determine which is active'. Let's highlight 'Home' as the main app hub. -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 transition-all duration-300 scale-95" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-bold text-[10px]">Home</span>
+</a>
+</nav>
+<!-- Desktop Navigation Cluster (Hidden on mobile) -->
+<nav class="hidden md:flex fixed top-0 w-full z-50 bg-surface/30 backdrop-blur-3xl border-b border-white/5 px-container-padding py-stack-md justify-between items-center">
+<div class="flex items-center gap-4">
+<!-- Desktop Logo -->
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary tracking-tighter">
+                Kréyol
+             </h1>
+<!-- Desktop Links -->
+<div class="ml-stack-lg flex gap-stack-md">
+<a class="font-label-bold text-white px-4 py-2 bg-primary-container text-on-primary-container rounded-full" href="#">Langue</a>
+<a class="font-label-bold text-on-surface-variant hover:text-primary transition-colors px-4 py-2" href="#">Carte</a>
+<a class="font-label-bold text-on-surface-variant hover:text-primary transition-colors px-4 py-2" href="#">Musique</a>
+</div>
+</div>
+<!-- Desktop Trailing -->
+<div class="flex items-center gap-stack-md">
+<button class="text-on-surface hover:opacity-80 transition-opacity flex items-center justify-center p-2 rounded-full bg-surface/30 backdrop-blur-3xl border border-white/5">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="ml-1 font-label-bold text-white">12</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-tertiary cursor-pointer">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ0iRzhV4tAyBPKd1HeSGfVi7wrQ_OHl4Ts2TeED48p_iEJZIbLz_CF2rtw3fw9sk4_6OKbQOt0fXWx9iztvHpjPIBrvwNQGvvFCwbIpoiny4RniHzQcELrgenwfbB-slDxdDerXOq0b6BItuauHkNWFjZkVBsH37hFH1pCieTTgZfdWaqlPRrln4UmdrPUP_9XB89sW_Nb08TtLh8TncypxFh0aDy6iZhlTPEwlopAbqlmwgrXtjEeJoxZfjyaP5qgb2BBNBegg"/>
+</div>
+</div>
+</nav>
+<script>
+        // Micro-interaction for top nav on scroll (Mobile)
+        window.addEventListener('scroll', () => {
+            const topNav = document.getElementById('mobile-top-nav');
+            if (window.scrollY > 20) {
+                topNav.classList.add('shadow-lg', 'border-b', 'border-white/5');
+            } else {
+                topNav.classList.remove('shadow-lg', 'border-b', 'border-white/5');
+            }
+        });
+    </script>
+</body></html>
