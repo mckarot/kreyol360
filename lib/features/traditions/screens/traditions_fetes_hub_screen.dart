@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../core/theme/colors.dart';
 import '../../../core/widgets/glass_panel.dart';
 import '../../../core/widgets/ambient_glow.dart';
+import '../../../core/network/pocketbase_client.dart';
+import '../../dashboard/screens/calendar_screen.dart';
+import '../../dashboard/screens/daily_events_screen.dart';
 import 'traditions_screen.dart';
 
 class TraditionsFetesHubScreen extends StatefulWidget {
@@ -13,13 +17,64 @@ class TraditionsFetesHubScreen extends StatefulWidget {
 
 class _TraditionsFetesHubScreenState extends State<TraditionsFetesHubScreen> {
   int _selectedCalendarIndex = 0;
+  List<Map<String, dynamic>> _allEvents = [];
+  bool _isLoadingEvents = true;
 
-  final List<Map<String, String>> _calendarEvents = [
-    {"month": "Fév", "day": "11", "title": "Dimanche Gras"},
-    {"month": "Mar", "day": "29", "title": "Vendredi Saint"},
-    {"month": "Mai", "day": "22", "title": "Abolition"},
-    {"month": "Août", "day": "15", "title": "Fête des Yoles"},
+  @override
+  void initState() {
+    super.initState();
+    _loadEvents();
+  }
+
+  Future<void> _loadEvents() async {
+    try {
+      final pbService = Provider.of<PocketBaseService>(context, listen: false);
+      final events = await pbService.fetchEvents();
+      if (mounted) {
+        setState(() {
+          _allEvents = events;
+          _isLoadingEvents = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isLoadingEvents = false;
+        });
+      }
+    }
+  }
+
+  List<DateTime> _generateNext7Days() {
+    final today = DateTime.now();
+    return List.generate(8, (index) {
+      return DateTime(today.year, today.month, today.day + index);
+    });
+  }
+
+  DateTime? _parseEventDate(dynamic dateVal) {
+    if (dateVal == null) return null;
+    final dateStr = dateVal.toString();
+    if (dateStr.isEmpty) return null;
+    return DateTime.tryParse(dateStr)?.toLocal();
+  }
+
+  List<Map<String, dynamic>> _getEventsForDay(DateTime day) {
+    return _allEvents.where((event) {
+      final date = _parseEventDate(event["date"]);
+      if (date == null) return false;
+      return date.year == day.year && date.month == day.month && date.day == day.day;
+    }).toList();
+  }
+
+  static const List<String> _shortMonths = [
+    "Jan", "Fév", "Mar", "Avr", "Mai", "Jui", "Juil", "Aoû", "Sep", "Oct", "Nov", "Déc"
   ];
+
+  static const List<String> _weekDays = [
+    "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"
+  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +135,22 @@ class _TraditionsFetesHubScreenState extends State<TraditionsFetesHubScreen> {
                         // Leading Avatar & Achievement Badge
                         Row(
                           children: [
+                            if (Navigator.canPop(context)) ...[
+                              GestureDetector(
+                                onTap: () => Navigator.of(context).pop(),
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white.withOpacity(0.06),
+                                    border: Border.all(color: Colors.white.withOpacity(0.08)),
+                                  ),
+                                  child: const Icon(Icons.arrow_back, color: AppColors.onSurface, size: 20),
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                            ],
                             Stack(
                               children: [
                                 Container(
@@ -190,7 +261,13 @@ class _TraditionsFetesHubScreenState extends State<TraditionsFetesHubScreen> {
                                 ),
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => const CalendarScreen(),
+                                    ),
+                                  );
+                                },
                                 child: const Text(
                                   "Voir tout",
                                   style: TextStyle(
@@ -204,89 +281,113 @@ class _TraditionsFetesHubScreenState extends State<TraditionsFetesHubScreen> {
                             ],
                           ),
                         ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          physics: const BouncingScrollPhysics(),
-                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                          child: Row(
-                            children: List.generate(_calendarEvents.length, (index) {
-                              final isSelected = _selectedCalendarIndex == index;
-                              final cal = _calendarEvents[index];
-
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 12),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _selectedCalendarIndex = index;
-                                    });
-                                  },
-                                  child: AnimatedContainer(
-                                    duration: const Duration(milliseconds: 250),
-                                    width: 120,
-                                    padding: const EdgeInsets.all(16),
-                                    decoration: BoxDecoration(
-                                      color: isSelected
-                                          ? AppColors.secondary.withOpacity(0.12)
-                                          : Colors.white.withOpacity(0.03),
-                                      borderRadius: BorderRadius.circular(16),
-                                      border: Border.all(
-                                        color: isSelected
-                                            ? AppColors.secondary.withOpacity(0.5)
-                                            : Colors.white.withOpacity(0.08),
-                                      ),
-                                      boxShadow: isSelected
-                                          ? [
-                                              BoxShadow(
-                                                color: AppColors.secondary.withOpacity(0.15),
-                                                blurRadius: 10,
-                                              )
-                                            ]
-                                          : null,
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          cal["month"]!.toUpperCase(),
-                                          style: TextStyle(
-                                            color: isSelected ? AppColors.secondary : AppColors.onSurfaceVariant.withOpacity(0.6),
-                                            fontSize: 11,
-                                            fontFamily: 'Be Vietnam Pro',
-                                            fontWeight: FontWeight.bold,
-                                            letterSpacing: 1.5,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          cal["day"]!,
-                                          style: const TextStyle(
-                                            color: AppColors.onSurface,
-                                            fontSize: 24,
-                                            fontFamily: 'Epilogue',
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 6),
-                                        Text(
-                                          cal["title"]!,
-                                          textAlign: TextAlign.center,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            color: AppColors.onSurfaceVariant.withOpacity(0.8),
-                                            fontSize: 10,
-                                            fontFamily: 'Be Vietnam Pro',
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                        _isLoadingEvents
+                            ? const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 24),
+                                child: Center(
+                                  child: CircularProgressIndicator(color: AppColors.secondary),
                                 ),
-                              );
-                            }),
-                          ),
-                        ),
+                              )
+                            : SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                                child: Row(
+                                  children: () {
+                                    final nextDays = _generateNext7Days();
+                                    return List.generate(nextDays.length, (index) {
+                                      final isSelected = _selectedCalendarIndex == index;
+                                      final day = nextDays[index];
+                                      final monthStr = _shortMonths[day.month - 1];
+                                      final dayStr = day.day.toString();
+                                      final dayEvents = _getEventsForDay(day);
+                                      final titleStr = dayEvents.isNotEmpty
+                                          ? (dayEvents.first["title"] ?? "")
+                                          : _weekDays[day.weekday - 1];
+
+                                      return Padding(
+                                        padding: const EdgeInsets.only(right: 12),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              _selectedCalendarIndex = index;
+                                            });
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) => DailyEventsScreen(
+                                                  date: day,
+                                                  events: dayEvents,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: AnimatedContainer(
+                                            duration: const Duration(milliseconds: 250),
+                                            width: 120,
+                                            padding: const EdgeInsets.all(16),
+                                            decoration: BoxDecoration(
+                                              color: isSelected
+                                                  ? AppColors.secondary.withOpacity(0.12)
+                                                  : Colors.white.withOpacity(0.03),
+                                              borderRadius: BorderRadius.circular(16),
+                                              border: Border.all(
+                                                color: isSelected
+                                                    ? AppColors.secondary.withOpacity(0.5)
+                                                    : Colors.white.withOpacity(0.08),
+                                              ),
+                                              boxShadow: isSelected
+                                                  ? [
+                                                      BoxShadow(
+                                                        color: AppColors.secondary.withOpacity(0.15),
+                                                        blurRadius: 10,
+                                                      )
+                                                    ]
+                                                  : null,
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  monthStr.toUpperCase(),
+                                                  style: TextStyle(
+                                                    color: isSelected ? AppColors.secondary : AppColors.onSurfaceVariant.withOpacity(0.6),
+                                                    fontSize: 11,
+                                                    fontFamily: 'Be Vietnam Pro',
+                                                    fontWeight: FontWeight.bold,
+                                                    letterSpacing: 1.5,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 4),
+                                                Text(
+                                                  dayStr,
+                                                  style: const TextStyle(
+                                                    color: AppColors.onSurface,
+                                                    fontSize: 24,
+                                                    fontFamily: 'Epilogue',
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 6),
+                                                Text(
+                                                  titleStr,
+                                                  textAlign: TextAlign.center,
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    color: AppColors.onSurfaceVariant.withOpacity(0.8),
+                                                    fontSize: 10,
+                                                    fontFamily: 'Be Vietnam Pro',
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    });
+                                  }(),
+                                ),
+                              ),
                       ],
                     ),
                   ),

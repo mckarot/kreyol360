@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../core/theme/colors.dart';
 import '../../../core/widgets/glass_panel.dart';
 import '../../../core/widgets/ambient_glow.dart';
+import '../../../core/network/pocketbase_client.dart';
+import 'calendar_screen.dart';
 
 class OutingsScreen extends StatefulWidget {
   final VoidCallback onToggleMap;
@@ -19,15 +22,22 @@ class _OutingsScreenState extends State<OutingsScreen> {
   int _selectedDayIndex = 0;
   String _selectedCommune = "Partout";
   String _selectedCategory = "Tous";
+  List<Map<String, dynamic>> _allEvents = [];
+  bool _isLoading = true;
 
-  final List<Map<String, String>> _days = [
-    {"label": "Auj", "day": "15"},
-    {"label": "Ven", "day": "16"},
-    {"label": "Sam", "day": "17"},
-    {"label": "Dim", "day": "18"},
-    {"label": "Lun", "day": "19"},
-    {"label": "Mar", "day": "20"},
-  ];
+  List<Map<String, dynamic>> get _dynamicDays {
+    final now = DateTime.now();
+    final List<String> weekdays = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+    return List.generate(7, (index) {
+      final date = now.add(Duration(days: index));
+      final label = index == 0 ? "Auj" : weekdays[date.weekday % 7];
+      return {
+        "label": label,
+        "day": date.day.toString().padLeft(2, '0'),
+        "date": date,
+      };
+    });
+  }
 
   final List<String> _communes = [
     "Partout",
@@ -45,33 +55,87 @@ class _OutingsScreenState extends State<OutingsScreen> {
     {"name": "Conférences", "icon": Icons.menu_book, "color": AppColors.tertiaryLight},
   ];
 
-  final List<Map<String, dynamic>> _events = [
-    {
-      "title": "Soirée Bèlè Lakour",
-      "location": "Place de la Mairie, Case-Pilote",
-      "quote": "\"L'authenticité des tambours sous les étoiles.\"",
-      "time": "19h00 - 23h30",
-      "price": "Gratuit",
-      "tag": "Tradition",
-      "category": "Concerts",
-      "commune": "Case-Pilote",
-      "imageUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuAJFRaFUbn3vEUMweA5NGpNAh_DpnRzGTwzSaDolfrI9dfryshU0oTo3rQHuukTxnsb0nq14m6WcwM7F2nq_fSLBLXMkEJUkMuqWvf860utlLqEtaGbfJGnMaFK5wrwvq3q6BTJzFv2_LnMWoxjQnBjMJ9cMkjHoFOHDBDqN6mDbMCyacRx3Ke6hK3pJPQKdkyshS-zirgWeiIY9UuU72eC2ObQ77N-KecCzaRxn7pwWOpqy6RdgY5L4lRTzqVTEiE-Iv6icyaX-Q"
-    },
-    {
-      "title": "Jazz sous les Filaos",
-      "location": "Habitation Clément, Le François",
-      "quote": "\"Une fusion parfaite entre notes cuivrées et brise tropicale.\"",
-      "time": "20h00 - 01h00",
-      "price": "25€",
-      "tag": "Jazz Caribéen",
-      "category": "Concerts",
-      "commune": "Le François",
-      "imageUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuDvtFzaZv5iOTtpW5PsKCtvBuPMDxdkTd4xgSDv0083j_36WUAWFG5eZZ57HLsLQwoUoZ2z5yk1j8qvwJdyhRRWqSL4PMGQaHdkftIVF006z1asBwXuhZg1Q8JYRKryOp5ymr5-98Pyw2mLHOGMeiSX3ziUprHwFnEC8adg1IvJX7humneU5pzd1ZSvfN4wuf1GBOj5I6KRmOIfZIoJZsiXK2Rn6SuGu9f6dn2lpEtGWSM47I3dQxFSXmZv5eDBGQeg4w1IZppqAQ"
+  @override
+  void initState() {
+    super.initState();
+    _loadEvents();
+  }
+
+  Future<void> _loadEvents() async {
+    try {
+      final pbService = Provider.of<PocketBaseService>(context, listen: false);
+      final events = await pbService.fetchEvents();
+      if (mounted) {
+        setState(() {
+          _allEvents = events;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
-  ];
+  }
+
+  List<Map<String, dynamic>> get _filteredEvents {
+    final dynamicDays = _dynamicDays;
+    if (_selectedDayIndex >= dynamicDays.length) return [];
+    final selectedDate = dynamicDays[_selectedDayIndex]["date"] as DateTime;
+
+    return _allEvents.where((e) {
+      // 1. Date correlation
+      if (e["date"] != null) {
+        try {
+          final eventDate = DateTime.parse(e["date"].toString());
+          if (eventDate.year != selectedDate.year ||
+              eventDate.month != selectedDate.month ||
+              eventDate.day != selectedDate.day) {
+            return false;
+          }
+        } catch (_) {
+          return false;
+        }
+      } else {
+        return false;
+      }
+
+      // 2. Commune correlation
+      if (_selectedCommune != "Partout") {
+        final loc = (e["location_name"] ?? "").toString().toLowerCase();
+        final comm = _selectedCommune.toLowerCase();
+        if (!loc.contains(comm)) {
+          return false;
+        }
+      }
+
+      // 3. Category correlation
+      if (_selectedCategory != "Tous") {
+        final cat = (e["category"] ?? "").toString().toLowerCase();
+        final selectedCat = _selectedCategory.toLowerCase();
+        
+        String normalize(String s) {
+          return s.replaceAll('é', 'e').replaceAll('â', 'a');
+        }
+        final nCat = normalize(cat);
+        final nSel = normalize(selectedCat);
+        
+        if (!nCat.contains(nSel) && !nSel.contains(nCat)) {
+          return false;
+        }
+      }
+
+      return true;
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final days = _dynamicDays;
+    final filteredEvents = _filteredEvents;
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -124,29 +188,49 @@ class _OutingsScreenState extends State<OutingsScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Weather Widget
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.06),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.white.withOpacity(0.08)),
-                          ),
-                          child: const Row(
-                            children: [
-                              Icon(Icons.wb_sunny_rounded, color: AppColors.tertiary, size: 14),
-                              SizedBox(width: 6),
-                              Text(
-                                "28°C - FDF",
-                                style: TextStyle(
-                                  color: AppColors.onSurface,
-                                  fontSize: 12,
-                                  fontFamily: 'Be Vietnam Pro',
-                                  fontWeight: FontWeight.bold,
+                        Row(
+                          children: [
+                            if (Navigator.canPop(context)) ...[
+                              GestureDetector(
+                                onTap: () => Navigator.of(context).pop(),
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white.withOpacity(0.06),
+                                    border: Border.all(color: Colors.white.withOpacity(0.08)),
+                                  ),
+                                  child: const Icon(Icons.arrow_back, color: AppColors.onSurface, size: 20),
                                 ),
                               ),
+                              const SizedBox(width: 12),
                             ],
-                          ),
+                            // Weather Widget
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.06),
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: Colors.white.withOpacity(0.08)),
+                              ),
+                              child: const Row(
+                                children: [
+                                  Icon(Icons.wb_sunny_rounded, color: AppColors.tertiary, size: 14),
+                                  SizedBox(width: 6),
+                                  Text(
+                                    "28°C - FDF",
+                                    style: TextStyle(
+                                      color: AppColors.onSurface,
+                                      fontSize: 12,
+                                      fontFamily: 'Be Vietnam Pro',
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                         // App Title
                         const Text(
@@ -185,9 +269,9 @@ class _OutingsScreenState extends State<OutingsScreen> {
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                     child: Row(
-                      children: List.generate(_days.length, (index) {
+                      children: List.generate(days.length, (index) {
                         final isSelected = _selectedDayIndex == index;
-                        final dayData = _days[index];
+                        final dayData = days[index];
 
                         return Padding(
                           padding: const EdgeInsets.only(right: 12),
@@ -239,7 +323,7 @@ class _OutingsScreenState extends State<OutingsScreen> {
                                   const SizedBox(height: 4),
                                   Text(
                                     dayData["day"]!,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: AppColors.onSurface,
                                       fontSize: 20,
                                       fontFamily: 'Epilogue',
@@ -361,14 +445,14 @@ class _OutingsScreenState extends State<OutingsScreen> {
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  cat["name"],
-                                  style: TextStyle(
-                                    color: isSelected ? Colors.white : AppColors.onSurfaceVariant.withOpacity(0.8),
-                                    fontSize: 11,
-                                    fontFamily: 'Be Vietnam Pro',
-                                    fontWeight: FontWeight.bold,
+                                    cat["name"],
+                                    style: TextStyle(
+                                      color: isSelected ? Colors.white : AppColors.onSurfaceVariant.withOpacity(0.8),
+                                      fontSize: 11,
+                                      fontFamily: 'Be Vietnam Pro',
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
                               ],
                             ),
                           ),
@@ -428,7 +512,7 @@ class _OutingsScreenState extends State<OutingsScreen> {
                                         colors: [
                                           Colors.transparent,
                                           Colors.black54,
-                                          const Color(0xE6000000),
+                                          Color(0xE6000000),
                                         ],
                                       ),
                                     ),
@@ -490,15 +574,24 @@ class _OutingsScreenState extends State<OutingsScreen> {
                                         ),
                                       ),
                                       const SizedBox(width: 12),
-                                      Container(
-                                        width: 44,
-                                        height: 44,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.white.withOpacity(0.12),
-                                          border: Border.all(color: Colors.white.withOpacity(0.1)),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) => const CalendarScreen(),
+                                            ),
+                                          );
+                                        },
+                                        child: Container(
+                                          width: 44,
+                                          height: 44,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.white.withOpacity(0.12),
+                                            border: Border.all(color: Colors.white.withOpacity(0.1)),
+                                          ),
+                                          child: const Icon(Icons.calendar_today, color: Colors.white, size: 18),
                                         ),
-                                        child: const Icon(Icons.calendar_today, color: Colors.white, size: 18),
                                       ),
                                     ],
                                   ),
@@ -513,198 +606,271 @@ class _OutingsScreenState extends State<OutingsScreen> {
                 ),
 
                 // Outings/Events Grid Header
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                    child: Text(
-                      "Soirées & Animations",
-                      style: TextStyle(
-                        color: AppColors.onSurface,
-                        fontSize: 18,
-                        fontFamily: 'Epilogue',
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Soirées & Animations",
+                          style: TextStyle(
+                            color: AppColors.onSurface,
+                            fontSize: 18,
+                            fontFamily: 'Epilogue',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const CalendarScreen(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            "Tout voir",
+                            style: TextStyle(
+                              color: Color(0xFF4CAF50),
+                              fontSize: 13,
+                              fontFamily: 'Be Vietnam Pro',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
 
                 // Events Feed List
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final item = _events[index];
-
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                        child: GlassPanel(
-                          padding: EdgeInsets.zero,
-                          borderRadius: 20,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Photo container
-                              SizedBox(
-                                height: 160,
-                                child: Stack(
-                                  fit: StackFit.expand,
-                                  children: [
-                                    Image.network(
-                                      item["imageUrl"]!,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    // Gradient overlay
-                                    Container(
-                                      decoration: const BoxDecoration(
-                                        gradient: LinearGradient(
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
-                                          colors: [
-                                            Colors.transparent,
-                                            Colors.black54,
-                                            Colors.black87,
-                                          ],
-                                        ),
+                _isLoading
+                    ? const SliverToBoxAdapter(
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(40.0),
+                            child: CircularProgressIndicator(color: AppColors.primary),
+                          ),
+                        ),
+                      )
+                    : filteredEvents.isEmpty
+                        ? SliverToBoxAdapter(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                              child: GlassPanel(
+                                padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                                child: Center(
+                                  child: Column(
+                                    children: [
+                                      Icon(
+                                        Icons.event_busy,
+                                        color: AppColors.onSurfaceVariant.withOpacity(0.4),
+                                        size: 40,
                                       ),
-                                    ),
-                                    // Price Badge
-                                    Positioned(
-                                      top: 12,
-                                      left: 12,
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                        decoration: BoxDecoration(
-                                          color: Colors.black.withOpacity(0.5),
-                                          borderRadius: BorderRadius.circular(12),
-                                          border: Border.all(color: AppColors.secondary.withOpacity(0.3)),
-                                        ),
-                                        child: Text(
-                                          item["price"]!,
-                                          style: const TextStyle(
-                                            color: AppColors.secondary,
-                                            fontSize: 10,
-                                            fontFamily: 'Be Vietnam Pro',
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              // Description Content
-                              Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            item["title"]!,
-                                            style: const TextStyle(
-                                              color: AppColors.onSurface,
-                                              fontSize: 16,
-                                              fontFamily: 'Epilogue',
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                        const Icon(
-                                          Icons.favorite_border,
-                                          color: AppColors.onSurfaceVariant,
-                                          size: 20,
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 6),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.location_on, color: AppColors.onSurfaceVariant, size: 12),
-                                        const SizedBox(width: 4),
-                                        Expanded(
-                                          child: Text(
-                                            item["location"]!,
-                                            style: TextStyle(
-                                              color: AppColors.onSurfaceVariant.withOpacity(0.8),
-                                              fontSize: 11,
-                                              fontFamily: 'Be Vietnam Pro',
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 12),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                                      decoration: BoxDecoration(
-                                        border: const Border(
-                                          left: BorderSide(color: AppColors.primary, width: 2),
-                                        ),
-                                        color: Colors.white.withOpacity(0.02),
-                                      ),
-                                      child: Text(
-                                        item["quote"]!,
+                                      const SizedBox(height: 12),
+                                      Text(
+                                        "Aucun événement pour ces critères.",
                                         style: TextStyle(
-                                          color: AppColors.onSurface.withOpacity(0.9),
-                                          fontSize: 12,
-                                          fontStyle: FontStyle.italic,
+                                          color: AppColors.onSurfaceVariant.withOpacity(0.8),
+                                          fontSize: 13,
                                           fontFamily: 'Be Vietnam Pro',
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 16),
-                                    const Divider(color: Colors.white10, height: 1),
-                                    const SizedBox(height: 12),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                                final item = filteredEvents[index];
+                                final priceText = item["price"] == null || item["price"] == 0
+                                    ? "Gratuit"
+                                    : "${item["price"]}€";
+
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                                  child: GlassPanel(
+                                    padding: EdgeInsets.zero,
+                                    borderRadius: 20,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Row(
-                                          children: [
-                                            const Icon(Icons.schedule, color: AppColors.tertiary, size: 14),
-                                            const SizedBox(width: 6),
-                                            Text(
-                                              item["time"]!,
-                                              style: const TextStyle(
-                                                color: AppColors.onSurface,
-                                                fontSize: 11,
-                                                fontFamily: 'Be Vietnam Pro',
-                                                fontWeight: FontWeight.bold,
+                                        // Photo container
+                                        SizedBox(
+                                          height: 160,
+                                          child: Stack(
+                                            fit: StackFit.expand,
+                                            children: [
+                                              if (item["image_url"] != null && item["image_url"].toString().isNotEmpty)
+                                                Image.network(
+                                                  item["image_url"],
+                                                  fit: BoxFit.cover,
+                                                  errorBuilder: (_, __, ___) => Container(color: AppColors.surfaceContainer),
+                                                )
+                                              else
+                                                Container(color: AppColors.surfaceContainer),
+                                              // Gradient overlay
+                                              Container(
+                                                decoration: const BoxDecoration(
+                                                  gradient: LinearGradient(
+                                                    begin: Alignment.topCenter,
+                                                    end: Alignment.bottomCenter,
+                                                    colors: [
+                                                      Colors.transparent,
+                                                      Colors.black54,
+                                                      Colors.black87,
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white.withOpacity(0.06),
-                                            borderRadius: BorderRadius.circular(4),
+                                              // Price Badge
+                                              Positioned(
+                                                top: 12,
+                                                left: 12,
+                                                child: Container(
+                                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.black.withOpacity(0.5),
+                                                    borderRadius: BorderRadius.circular(12),
+                                                    border: Border.all(color: AppColors.secondary.withOpacity(0.3)),
+                                                  ),
+                                                  child: Text(
+                                                    priceText,
+                                                    style: const TextStyle(
+                                                      color: AppColors.secondary,
+                                                      fontSize: 10,
+                                                      fontFamily: 'Be Vietnam Pro',
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          child: Text(
-                                            item["tag"]!.toUpperCase(),
-                                            style: TextStyle(
-                                              color: AppColors.onSurfaceVariant.withOpacity(0.6),
-                                              fontSize: 8,
-                                              fontFamily: 'Be Vietnam Pro',
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                        ),
+
+                                        // Description Content
+                                        Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      item["title"] ?? "",
+                                                      style: const TextStyle(
+                                                        color: AppColors.onSurface,
+                                                        fontSize: 16,
+                                                        fontFamily: 'Epilogue',
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const Icon(
+                                                    Icons.favorite_border,
+                                                    color: AppColors.onSurfaceVariant,
+                                                    size: 20,
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 6),
+                                              Row(
+                                                children: [
+                                                  const Icon(Icons.location_on, color: AppColors.onSurfaceVariant, size: 12),
+                                                  const SizedBox(width: 4),
+                                                  Expanded(
+                                                    child: Text(
+                                                      item["location_name"] ?? "",
+                                                      style: TextStyle(
+                                                        color: AppColors.onSurfaceVariant.withOpacity(0.8),
+                                                        fontSize: 11,
+                                                        fontFamily: 'Be Vietnam Pro',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              if (item["description"] != null && item["description"].toString().isNotEmpty) ...[
+                                                const SizedBox(height: 12),
+                                                Container(
+                                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                                  decoration: BoxDecoration(
+                                                    border: const Border(
+                                                      left: BorderSide(color: AppColors.primary, width: 2),
+                                                    ),
+                                                    color: Colors.white.withOpacity(0.02),
+                                                  ),
+                                                  child: Text(
+                                                    item["description"],
+                                                    style: TextStyle(
+                                                      color: AppColors.onSurface.withOpacity(0.9),
+                                                      fontSize: 12,
+                                                      fontStyle: FontStyle.italic,
+                                                      fontFamily: 'Be Vietnam Pro',
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                              const SizedBox(height: 16),
+                                              const Divider(color: Colors.white10, height: 1),
+                                              const SizedBox(height: 12),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      const Icon(Icons.schedule, color: AppColors.tertiary, size: 14),
+                                                      const SizedBox(width: 6),
+                                                      Text(
+                                                        item["date"] != null
+                                                            ? "${DateTime.parse(item["date"]).hour.toString().padLeft(2, '0')}h${DateTime.parse(item["date"]).minute.toString().padLeft(2, '0')}"
+                                                            : "19h00",
+                                                        style: const TextStyle(
+                                                          color: AppColors.onSurface,
+                                                          fontSize: 11,
+                                                          fontFamily: 'Be Vietnam Pro',
+                                                          fontWeight: FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  if (item["category"] != null)
+                                                    Container(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white.withOpacity(0.06),
+                                                        borderRadius: BorderRadius.circular(4),
+                                                      ),
+                                                      child: Text(
+                                                        item["category"].toString().toUpperCase(),
+                                                        style: TextStyle(
+                                                          color: AppColors.onSurfaceVariant.withOpacity(0.6),
+                                                          fontSize: 8,
+                                                          fontFamily: 'Be Vietnam Pro',
+                                                          fontWeight: FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ],
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                                  ),
+                                );
+                              },
+                              childCount: filteredEvents.length,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    childCount: _events.length,
-                  ),
-                ),
                 const SliverToBoxAdapter(child: SizedBox(height: 120)),
               ],
             ),
