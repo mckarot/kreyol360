@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import '../../../core/theme/colors.dart';
 import '../../../core/widgets/glass_panel.dart';
 import '../../../core/widgets/ambient_glow.dart';
@@ -22,8 +24,16 @@ class _OutingsScreenState extends State<OutingsScreen> {
   int _selectedDayIndex = 0;
   String _selectedCommune = "Partout";
   String _selectedCategory = "Tous";
+  String _selectedZone = "Partout";
   List<Map<String, dynamic>> _allEvents = [];
   bool _isLoading = true;
+
+  final Map<String, List<String>> _zoneCommunes = {
+    "Centre": ["Fort-de-France", "Le Lamentin", "Schœlcher", "Saint-Joseph"],
+    "Nord Caraïbe": ["Case-Pilote", "Bellefontaine", "Le Carbet", "Saint-Pierre", "Le Prêcheur", "Le Morne-Vert", "Fonds-Saint-Denis"],
+    "Nord Atlantique": ["La Trinité", "Sainte-Marie", "Le Robert", "Gros-Morne", "Le Lorrain", "Le Marigot", "Basse-Pointe", "Grand'Rivière", "Macouba", "L'Ajoupa-Bouillon", "Le Morne-Rouge"],
+    "Sud": ["Les Trois-Îlets", "Les Anses-d'Arlet", "Le Diamant", "Sainte-Luce", "Le Marin", "Sainte-Anne", "Le Vauclin", "Le François", "Rivière-Salée", "Rivière-Pilote", "Saint-Esprit", "Ducos"]
+  };
 
   List<Map<String, dynamic>> get _dynamicDays {
     final now = DateTime.now();
@@ -39,13 +49,20 @@ class _OutingsScreenState extends State<OutingsScreen> {
     });
   }
 
-  final List<String> _communes = [
-    "Partout",
-    "Fort-de-France",
-    "Saint-Pierre",
-    "Case-Pilote",
-    "Le Diamant",
-  ];
+  List<String> get _filteredCommunes {
+    if (_selectedZone == "Partout") {
+      return [
+        "Partout",
+        "Fort-de-France",
+        "Saint-Pierre",
+        "Case-Pilote",
+        "Le Diamant",
+        "Le François",
+        "Sainte-Marie"
+      ];
+    }
+    return ["Partout", ...(_zoneCommunes[_selectedZone] ?? [])];
+  }
 
   final List<Map<String, dynamic>> _categories = [
     {"name": "Théâtre", "icon": Icons.theater_comedy, "color": AppColors.primary},
@@ -102,12 +119,27 @@ class _OutingsScreenState extends State<OutingsScreen> {
         return false;
       }
 
-      // 2. Commune correlation
-      if (_selectedCommune != "Partout") {
-        final loc = (e["location_name"] ?? "").toString().toLowerCase();
-        final comm = _selectedCommune.toLowerCase();
-        if (!loc.contains(comm)) {
-          return false;
+      // 2. Commune / Zone correlation
+      final loc = (e["location_name"] ?? "").toString().toLowerCase();
+      if (_selectedZone != "Partout") {
+        final allowedCommunes = _zoneCommunes[_selectedZone] ?? [];
+        if (_selectedCommune != "Partout") {
+          final comm = _selectedCommune.toLowerCase();
+          if (!loc.contains(comm)) {
+            return false;
+          }
+        } else {
+          bool matchesAny = allowedCommunes.any((c) => loc.contains(c.toLowerCase()));
+          if (!matchesAny) {
+            return false;
+          }
+        }
+      } else {
+        if (_selectedCommune != "Partout") {
+          final comm = _selectedCommune.toLowerCase();
+          if (!loc.contains(comm)) {
+            return false;
+          }
         }
       }
 
@@ -135,6 +167,7 @@ class _OutingsScreenState extends State<OutingsScreen> {
   Widget build(BuildContext context) {
     final days = _dynamicDays;
     final filteredEvents = _filteredEvents;
+    final communes = _filteredCommunes;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -340,6 +373,66 @@ class _OutingsScreenState extends State<OutingsScreen> {
                   ),
                 ),
 
+                // Interactive Mini-Map Section
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    child: GlassPanel(
+                      padding: const EdgeInsets.all(16),
+                      borderRadius: 24,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "Localiser par Zone",
+                                style: TextStyle(
+                                  color: AppColors.onSurface,
+                                  fontSize: 14,
+                                  fontFamily: 'Epilogue',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              if (_selectedZone != "Partout")
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      _selectedZone = "Partout";
+                                      _selectedCommune = "Partout";
+                                    });
+                                  },
+                                  child: const Text(
+                                    "Réinitialiser",
+                                    style: TextStyle(
+                                      color: AppColors.primaryLight,
+                                      fontSize: 11,
+                                      fontFamily: 'Be Vietnam Pro',
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Center(
+                            child: MartiniqueMiniMap(
+                              selectedZone: _selectedZone,
+                              onZoneSelected: (zone) {
+                                setState(() {
+                                  _selectedZone = zone;
+                                  _selectedCommune = "Partout"; // reset sub-commune on zone change
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
                 // Communes Filter Chips
                 SliverToBoxAdapter(
                   child: SingleChildScrollView(
@@ -347,7 +440,7 @@ class _OutingsScreenState extends State<OutingsScreen> {
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                     child: Row(
-                      children: _communes.map((commune) {
+                      children: communes.map((commune) {
                         final isSelected = _selectedCommune == commune;
 
                         return Padding(
@@ -917,6 +1010,190 @@ class _OutingsScreenState extends State<OutingsScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class MartiniqueMiniMap extends StatelessWidget {
+  final String selectedZone;
+  final Function(String) onZoneSelected;
+
+  const MartiniqueMiniMap({
+    super.key,
+    required this.selectedZone,
+    required this.onZoneSelected,
+  });
+
+  static const List<LatLng> _nordCaraibePoints = [
+    LatLng(14.88, -61.18), // North tip
+    LatLng(14.84, -61.23), // NW slope
+    LatLng(14.79, -61.22), // Prêcheur
+    LatLng(14.74, -61.18), // Saint-Pierre
+    LatLng(14.70, -61.18), // Carbet
+    LatLng(14.67, -61.17), // Bellefontaine
+    LatLng(14.64, -61.14), // Case-Pilote
+    LatLng(14.61, -61.11), // Schoelcher border
+    LatLng(14.68, -61.08), // Inland Saint-Joseph border
+    LatLng(14.78, -61.11), // Morne-Rouge area
+  ];
+
+  static const List<LatLng> _nordAtlantiquePoints = [
+    LatLng(14.88, -61.18), // North tip
+    LatLng(14.88, -61.12), // Basse-Pointe
+    LatLng(14.84, -61.05), // Lorrain
+    LatLng(14.79, -60.99), // Sainte-Marie
+    LatLng(14.76, -60.97), // Caravelle neck
+    LatLng(14.77, -60.88), // Caravelle tip
+    LatLng(14.73, -60.91), // Caravelle South
+    LatLng(14.68, -60.94), // Robert
+    LatLng(14.63, -60.90), // Robert/François coast border
+    LatLng(14.64, -60.96), // Triple junction point
+    LatLng(14.68, -61.08), // Saint-Joseph area
+    LatLng(14.78, -61.11), // Morne-Rouge area
+  ];
+
+  static const List<LatLng> _centrePoints = [
+    LatLng(14.61, -61.11), // Schoelcher border
+    LatLng(14.68, -61.08), // Saint-Joseph area
+    LatLng(14.64, -60.96), // Triple junction point
+    LatLng(14.59, -60.95), // Lamentin / Ducos border
+    LatLng(14.60, -60.99), // Lamentin / Bay
+    LatLng(14.60, -61.07), // Fort-de-France
+  ];
+
+  static const List<LatLng> _sudPoints = [
+    LatLng(14.59, -60.95), // Lamentin / Ducos border
+    LatLng(14.64, -60.96), // Triple junction point
+    LatLng(14.63, -60.90), // Robert/François coast border
+    LatLng(14.61, -60.88), // Le François
+    LatLng(14.54, -60.83), // Le Vauclin
+    LatLng(14.43, -60.84), // Salines / East
+    LatLng(14.39, -60.88), // Sainte-Anne South tip
+    LatLng(14.45, -60.88), // Sainte-Anne North
+    LatLng(14.47, -60.87), // Le Marin
+    LatLng(14.46, -60.93), // Sainte-Luce
+    LatLng(14.45, -61.02), // Diamant
+    LatLng(14.47, -61.09), // Anses-d'Arlet
+    LatLng(14.55, -61.08), // Trois-Ilets West
+    LatLng(14.54, -61.05), // Trois-Ilets
+    LatLng(14.60, -60.99), // Lamentin / Bay
+  ];
+
+  bool _isPointInPolygon(LatLng point, List<LatLng> polygon) {
+    int i, j = polygon.length - 1;
+    bool oddNodes = false;
+    double x = point.longitude;
+    double y = point.latitude;
+
+    for (i = 0; i < polygon.length; i++) {
+      if ((polygon[i].latitude < y && polygon[j].latitude >= y ||
+              polygon[j].latitude < y && polygon[i].latitude >= y) &&
+          (polygon[i].longitude +
+                  (y - polygon[i].latitude) /
+                      (polygon[j].latitude - polygon[i].latitude) *
+                      (polygon[j].longitude - polygon[i].longitude) <
+              x)) {
+        oddNodes = !oddNodes;
+      }
+      j = i;
+    }
+    return oddNodes;
+  }
+
+  void _handleTap(LatLng latLng) {
+    if (_isPointInPolygon(latLng, _nordCaraibePoints)) {
+      _toggleZone("Nord Caraïbe");
+    } else if (_isPointInPolygon(latLng, _nordAtlantiquePoints)) {
+      _toggleZone("Nord Atlantique");
+    } else if (_isPointInPolygon(latLng, _centrePoints)) {
+      _toggleZone("Centre");
+    } else if (_isPointInPolygon(latLng, _sudPoints)) {
+      _toggleZone("Sud");
+    }
+  }
+
+  void _toggleZone(String zone) {
+    if (selectedZone == zone) {
+      onZoneSelected("Partout");
+    } else {
+      onZoneSelected(zone);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 250,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white.withOpacity(0.08)),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: FlutterMap(
+          options: MapOptions(
+            initialCenter: const LatLng(14.63, -61.01),
+            initialZoom: 9.3,
+            minZoom: 9.3,
+            maxZoom: 9.3,
+            interactionOptions: const InteractionOptions(
+              flags: InteractiveFlag.none, // Disable all navigation/gestures
+            ),
+            onTap: (tapPosition, latLng) => _handleTap(latLng),
+          ),
+          children: [
+            TileLayer(
+              urlTemplate: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+              subdomains: const ['a', 'b', 'c', 'd'],
+            ),
+            PolygonLayer(
+              polygons: [
+                Polygon(
+                  points: _nordCaraibePoints,
+                  color: selectedZone == "Nord Caraïbe"
+                      ? const Color(0xFF00E676).withOpacity(0.25)
+                      : Colors.white.withOpacity(0.04),
+                  borderColor: selectedZone == "Nord Caraïbe"
+                      ? const Color(0xFF00E676)
+                      : Colors.white.withOpacity(0.2),
+                  borderStrokeWidth: selectedZone == "Nord Caraïbe" ? 2.5 : 1.2,
+                ),
+                Polygon(
+                  points: _nordAtlantiquePoints,
+                  color: selectedZone == "Nord Atlantique"
+                      ? const Color(0xFF00B0FF).withOpacity(0.25)
+                      : Colors.white.withOpacity(0.04),
+                  borderColor: selectedZone == "Nord Atlantique"
+                      ? const Color(0xFF00B0FF)
+                      : Colors.white.withOpacity(0.2),
+                  borderStrokeWidth: selectedZone == "Nord Atlantique" ? 2.5 : 1.2,
+                ),
+                Polygon(
+                  points: _centrePoints,
+                  color: selectedZone == "Centre"
+                      ? const Color(0xFFFFD600).withOpacity(0.25)
+                      : Colors.white.withOpacity(0.04),
+                  borderColor: selectedZone == "Centre"
+                      ? const Color(0xFFFFD600)
+                      : Colors.white.withOpacity(0.2),
+                  borderStrokeWidth: selectedZone == "Centre" ? 2.5 : 1.2,
+                ),
+                Polygon(
+                  points: _sudPoints,
+                  color: selectedZone == "Sud"
+                      ? const Color(0xFFFF3D00).withOpacity(0.25)
+                      : Colors.white.withOpacity(0.04),
+                  borderColor: selectedZone == "Sud"
+                      ? const Color(0xFFFF3D00)
+                      : Colors.white.withOpacity(0.2),
+                  borderStrokeWidth: selectedZone == "Sud" ? 2.5 : 1.2,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
